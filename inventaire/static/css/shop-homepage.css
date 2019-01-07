@@ -151,7 +151,11 @@ body {
 }
 
 a{
-  color: #BB1700;
+  color: #4565AD;
+}
+
+#content{
+  background-color: white;
 }
 
 .card-title{
