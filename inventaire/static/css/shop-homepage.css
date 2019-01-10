@@ -160,4 +160,21 @@ a{
 
 .card-title{
   text-align: center;
+  margin-top: -10px;
+}
+
+.card-text-ref{
+  text-align: center;
+  font-style: italic;
+  font-size: small;
+}
+
+.card-text{
+  margin-top: -10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.card-footer{
+  margin-top: -10px;
 }

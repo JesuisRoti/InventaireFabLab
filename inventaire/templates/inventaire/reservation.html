@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Reservation{% endblock %}
+
+{% block content %}
+<form  action="{% url "reservation" %}" method="post" style="margin-top: 100px">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input style="align-content: center" type="submit" value="Submit" />
+</form>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}FabLab{% endblock %}
+{% block content %}
+
+
+    <div style="margin-top: 52px" class="col-lg-9">
+
+
+    <div class="row">
+
+{% for produit in oui %}
+        <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+            <div  class="card h-100">
+                <a href="#"><img class="card-img-top" src="../../static/gestion/outils.jpg" alt=""></a>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="#">{{ produit.product_Name }}</a>
+                    </h4>
+                    <p class="card-text-ref"> #{{ produit.product_Ref }}</p>
+                    <p class="card-text"> {{ produit.available_Product }}/{{ produit.stock }}</p>
+                </div>
+                <div class="card-footer">
+                    <form action="../reservation/" method="post">
+                                {% csrf_token %}
+                        <input id="product_Ref" name="product_Ref" type="hidden" value="{{ produit.product_Ref }}">
+                        <button class="button-perso" type="submit">Réserver</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+{%  empty  %}
+    <p>Aucun article</p>
+{% endfor %}
+{% endblock %}
+    </div>
+    </div>
