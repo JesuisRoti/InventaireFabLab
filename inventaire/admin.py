@@ -10,7 +10,7 @@ class ProduitAdmin(admin.ModelAdmin):
     admin.site.site_title = 'Parametres'
     admin.site.index_title = 'FabLab'
 
-
+admin.site.register(pole)
 admin.site.register(product, ProduitAdmin)
 admin.site.register(reservation)
 admin.site.register(category)
