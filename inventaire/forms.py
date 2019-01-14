@@ -7,3 +7,9 @@ class ReservationForm (forms.ModelForm):
         model = reservation
         widgets = {'id_Product': forms.HiddenInput()}
         exclude = ('return_Quantity',)
+
+class RetourForm (forms.ModelForm):
+    class Meta:
+        model = reservation
+        widgets = {'id_Product': forms.HiddenInput(), 'return_Date': forms.HiddenInput}
+        exclude = ('starting_Date', 'quantity',)
