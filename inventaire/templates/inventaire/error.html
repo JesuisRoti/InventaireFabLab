@@ -1,0 +1,11 @@
+{% extends "base_error.html" %}
+{% load static %}
+{% block content %}
+{% if id_error == 1 %}
+    Erreur dans la saisie des informations
+{% endif %}
+    {% if id_error == 2 %}
+        Erreur dans la quantité de produit rendu
+    {% endif %}
+
+{% endblock %}
