@@ -44,7 +44,12 @@
                         <a href="">{{ product.product_Name }}</a>
                     </h4>
                 </div>
-                <div class="card-footer">Lorem Ipsum
+                <div class="card-footer">
+                    <form action="../reservation/" method="post">
+                        {% csrf_token %}
+                        <input id="product_Ref" name="product_Ref" type="hidden" value="{{ produit.product_Ref }}">
+                        <button class="button-perso" type="submit">Réserver</button>
+                    </form>
                 </div>
             </div>
         </div>
