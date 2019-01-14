@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}FabLab{% endblock %}
+{% block titre_gauche %}Inventaire{% endblock %}
+
+{% block content %}
+
+    <div style="margin-top: 52px" class="col-lg-9">
+        <div class="row">
+        {% for pole in poles_list %}
+        <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+            <div  class="card h-100">
+              <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="{{ pole.pole_Name }}">{{ pole.pole_Name }}</a>
+                    </h4>
+                </div>
+                <div class="card-footer">Lorem Ipsum
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% for categorie in cat_list %}
+        <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+            <div  class="card h-100">
+               <a href="../categorie/{{ categorie.category_name }}"><img class="card-img-top" src="../../static/gestion/Actualite1.jpg" alt=""></a>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="../categorie/{{ categorie.category_name }}">{{ categorie.category_name }}</a>
+                    </h4>
+                </div>
+                <div class="card-footer">Lorem Ipsum
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% for product in cat_products %}
+        <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+            <div  class="card h-100">
+              <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="">{{ product.product_Name }}</a>
+                    </h4>
+                </div>
+                <div class="card-footer">
+                    <form action="../reservation/" method="post">
+                        {% csrf_token %}
+                        <input id="product_Ref" name="product_Ref" type="hidden" value="{{ produit.product_Ref }}">
+                        <button class="button-perso" type="submit">Réserver</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+</div>
+</div>

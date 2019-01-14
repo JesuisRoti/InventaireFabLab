@@ -1,8 +1,16 @@
 from django.db import models
 
 # Create your models here.
+
+class pole (models.Model):
+    pole_Name = models.CharField(max_length=50)
+
+    def __int__(self):
+        return self.id
+
 class category (models.Model):
     category_name = models.CharField(max_length=100)
+    pole_id = models.ForeignKey('pole', on_delete=models.PROTECT)
 
     def __int__(self):
         return self.id
@@ -104,3 +112,5 @@ class news_article (models.Model):
     article = models.CharField(max_length=4000)
     date = models.DateField(auto_now=True)
     show_it = models.BooleanField()
+
+
