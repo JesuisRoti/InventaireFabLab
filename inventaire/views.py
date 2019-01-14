@@ -11,14 +11,13 @@ def home_inventaire(request):
 def error(request):
     return render(request, 'inventaire/error.html')
 
-def reserver(request):
 def show_category(request, pole_name):
     poles = pole.objects.filter(pole_Name=pole_name)
     categories = category.objects.filter(pole_id=poles[0])
 
     return render(request, 'inventaire/category.html', {'cat_list':categories})
 
-def reservation(request):
+def reserver(request):
     if request.method == 'POST':
         global product_ref_final
         product_ref = request.POST.get('product_Ref')
