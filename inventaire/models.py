@@ -38,7 +38,7 @@ class reservation (models.Model):
     promotion = models.CharField(max_length=4, choices=promotion_choice, default='A1')
     starting_Date = models.DateField(auto_now=True)
     quantity = models.PositiveIntegerField(null=False)
-    return_Quantity = models.PositiveIntegerField(null=True)
+    return_Quantity = models.PositiveIntegerField(null=True, blank=True)
     return_Date = models.DateField(null=True, blank=True)
     id_Product = models.ForeignKey('product', on_delete=models.PROTECT, null=True, blank=True)
 
