@@ -30,6 +30,9 @@ def check_login(request):
         if user is not None:
             login(request, user)
             return redirect('new_project')
+        else:
+            id_error = 5
+            return render(request, 'error.html', {'id_error': id_error})
     else:
         form = loginForm(request.POST or None)
         return render(request,'project/login.html', locals())
@@ -39,5 +42,7 @@ def new_project(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('../projet')
+            id_success = 3
+            id_button = "/projet"
+            return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})
     return render (request, 'project/nouveau_projet.html', locals())

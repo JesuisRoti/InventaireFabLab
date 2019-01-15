@@ -40,7 +40,6 @@ def reserver(request):
                 form.save()
                 id_success = 1
                 id_button = "/pole"
-                print (id_button)
                 return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})
         else:
             product_ref_final = product_ref
@@ -92,7 +91,6 @@ def retour(request):
                             produit.save(update_fields=['available_Product'])
                     id_success = 2
                     id_button = "/pole"
-                    print (id_button)
                     return render(request, 'success.html', {'id_success': id_success, 'id_button':id_button})
         else:
             product_ref_final = product_ref
