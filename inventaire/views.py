@@ -15,7 +15,7 @@ def show_category(request, pole_name):
     poles = pole.objects.filter(pole_Name=pole_name)
     categories = category.objects.filter(pole_id=poles[0])
 
-    return render(request, 'inventaire/category.html', {'cat_list':categories})
+    return render(request, 'inventaire/category.html', {'cat_list': categories, 'pole_name': pole_name})
 
 def reserver(request):
     if request.method == 'POST':

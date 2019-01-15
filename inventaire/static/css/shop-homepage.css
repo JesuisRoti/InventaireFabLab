@@ -196,8 +196,12 @@ a{
     display: block!important;
 }
 .bleucesi{
-  background-color: #868e96;
+    color: #000!important;
+    background-color: #4565AD!important;
+}
 
+div .w3-button:hover{
+background-color:white!important;
 }
 
 .card-img-error{
