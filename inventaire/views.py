@@ -9,7 +9,10 @@ def home_inventaire(request):
     return render(request, 'inventaire/home-inventaire.html', {'oui':produit})
 
 def error(request):
-    return render(request, 'inventaire/error.html')
+    return render(request, '/error.html')
+
+def success(request):
+    return render(request, '/error.html')
 
 def show_category(request, pole_name):
     poles = pole.objects.filter(pole_Name=pole_name)
@@ -32,10 +35,13 @@ def reserver(request):
                         produit.available_Product += -form.quantity
                         produit.save()
                     else:
-                        previous_url = request.META.get('HTTP_REFERER')
-                        return render(request, 'inventaire/error2.html', {'prev':previous_url})
+                        id_error = 1
+                        return render(request, 'error.html', {'id_error': id_error})
                 form.save()
-                return redirect('../')
+                id_success = 1
+                id_button = "/pole"
+                print (id_button)
+                return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})
         else:
             product_ref_final = product_ref
         return render(request, 'inventaire/reservation.html', locals())
@@ -70,11 +76,11 @@ def retour(request):
                                                  promotion=form.promotion,
                                                  return_Quantity=None)
                 if not retour:
-                    id_error = 1
-                    return render(request, 'inventaire/error.html', {'id_error': id_error})
-                elif form.return_Quantity > retour[0].quantity:
                     id_error = 2
-                    return render(request, 'inventaire/error.html', {'id_error': id_error})
+                    return render(request, 'error.html', {'id_error': id_error})
+                elif form.return_Quantity > retour[0].quantity:
+                    id_error = 3
+                    return render(request, 'error.html', {'id_error': id_error})
                 else:
                     for retour in retour:
                         retour.return_Date = date.date()
@@ -84,7 +90,10 @@ def retour(request):
                         for produit in produit:
                             produit.available_Product += form.return_Quantity
                             produit.save(update_fields=['available_Product'])
-                    return redirect('../')
+                    id_success = 2
+                    id_button = "/pole"
+                    print (id_button)
+                    return render(request, 'success.html', {'id_success': id_success, 'id_button':id_button})
         else:
             product_ref_final = product_ref
         return render(request, 'inventaire/retour.html', locals())

@@ -1,0 +1,15 @@
+{% extends "base_success.html" %}
+{% load static %}
+{% block content %}
+    {% if id_success == 1 %}
+        Réservertation enregistrée avec succès
+    {% endif %}
+
+    {%  if id_success == 2 %}
+        Produit rendu avec succès
+    {% endif %}
+{% endblock %}
+
+{% block button %}
+    {{ id_button }}
+{% endblock %}
