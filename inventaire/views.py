@@ -24,8 +24,12 @@ def reservation(request):
                 produit = product.objects.filter(product_Ref=product_ref_final)
                 for produit in produit:
                     form.id_Product = produit
-                    produit.available_Product += -form.quantity
-                    produit.save()
+                    if (produit.available_Product >= form.quantity):
+                        produit.available_Product += -form.quantity
+                        produit.save()
+                    else:
+                        previous_url = request.META.get('HTTP_REFERER')
+                        return render(request, 'inventaire/error2.html', {'prev':previous_url})
                 form.save()
                 return redirect('../')
         else:

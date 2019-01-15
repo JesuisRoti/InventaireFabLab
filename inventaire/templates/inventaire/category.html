@@ -43,11 +43,13 @@
                     <h4 class="card-title">
                         <a href="">{{ product.product_Name }}</a>
                     </h4>
+                    <p class="card-text-ref"> #{{ product.product_Ref }}</p>
+                    <p class="card-text"> {{ product.available_Product }}/{{ product.stock }}</p>
                 </div>
                 <div class="card-footer">
                     <form action="../reservation/" method="post">
                         {% csrf_token %}
-                        <input id="product_Ref" name="product_Ref" type="hidden" value="{{ produit.product_Ref }}">
+                        <input id="product_Ref" name="product_Ref" type="hidden" value="{{ product.product_Ref }}">
                         <button class="button-perso" type="submit">Réserver</button>
                     </form>
                 </div>
