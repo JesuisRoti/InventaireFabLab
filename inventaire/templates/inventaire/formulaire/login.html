@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titre_gauche %}Ajout Produit{% endblock %}
+
+
+{% block content %}
+<form  action="{% url "login_produit" %}" method="post" style="margin-top: 100px">
+        {% csrf_token %}
+        {{ form.as_p }}
+    {{ form2.as_p }}
+    <input type="hidden" name="cat_name"  id="cat_name" value="">
+    <input style="align-content: center" type="submit" value="Submit" />
+</form>
+{% endblock %}

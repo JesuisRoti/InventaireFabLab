@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import product, reservation, category, pole
-from inventaire.forms import ReservationForm, RetourForm
+from inventaire.forms import *
 from datetime import date, time, datetime
+from django.contrib.auth import authenticate, login
 
 def home_inventaire(request):
     produit = product.objects.all()
@@ -89,3 +90,61 @@ def retour(request):
             product_ref_final = product_ref
         return render(request, 'inventaire/retour.html', locals())
     return render(request, 'inventaire/home-inventaire.html')
+
+# def ajout_Produit(request):
+#     # if request.method == 'POST':
+#     global categorie_name_final
+#     categorie_name = request.POST.get('cat_name')
+#     form = NouveauProduitForm(request.POST or None)
+#     form2 = ModificationStockForm(request.POST or None)
+#     if not categorie_name:
+#         print (categorie_name_final)
+#         categorie_objet = category.objects.filter(category_name=categorie_name_final)
+#         if form.is_valid() and form2.is_valid():
+#             form = form.save(commit=False)
+#             form2 = form2.save(commit=False)
+#             form.id_Category = categorie_objet[0]
+#             form2.name_Product = form.product_Name
+#             form2.modification = "ajout"
+#             form.save()
+#             form2.save()
+#             return redirect ('../')
+#     else:
+#         categorie_name_final = categorie_name
+#         return render(request, 'inventaire/formulaire/nouveau_produit.html', locals())
+#     cat_name = local
+#     print (cat_name)
+#     return render(request, 'inventaire/formulaire/nouveau_produit.html', locals())
+
+
+def check_login(request):
+    if request.method == 'POST':
+        global mdp, nomdecompte, cat_name_final
+        form = loginForm(request.POST or None)
+        mdp = request.POST.get('mdp')
+        nomdecompte = request.POST.get('nomdecompte')
+        cat_name = request.POST.get('cat_name')
+        user = authenticate(request, username=nomdecompte, password=mdp)
+
+        if user is not None:
+            login(request, user)
+            print (cat_name_final)
+            form = NouveauProduitForm(request.POST or None)
+            form2 = ModificationStockForm(request.POST or None)
+            if cat_name_final:
+                categorie_objet = category.objects.filter(category_name=cat_name_final)
+                if form.is_valid() and form2.is_valid():
+                    form = form.save(commit=False)
+                    form2 = form2.save(commit=False)
+                    form.id_Category = categorie_objet[0]
+                    form2.name_Product = form.product_Name
+                    form2.modification = "ajout"
+                    form.save()
+                    form2.save()
+                    return redirect('../')
+        else:
+            cat_name_final = cat_name
+        return render(request,'inventaire/formulaire/login.html', locals())
+    else:
+        form = loginForm(request.POST or None)
+        return render(request,'inventaire/formulaire/login.html', locals())

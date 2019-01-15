@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Nouveau Produit{% endblock %}
+
+{% block content %}
+<form  action="{% url "nouveau_produit" %}" method="post" style="margin-top: 100px">
+        {% csrf_token %}
+        {{ form.as_p }}
+    {{ form2.as_p }}
+    <input style="align-content: center" type="submit" value="Submit" />
+</form>
+{% endblock %}
