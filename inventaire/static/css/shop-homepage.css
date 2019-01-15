@@ -185,6 +185,24 @@ a{
     right: 0;
     z-index: 1
 }
+.sidebar{
+    width: 200px;
+    position: fixed!important;
+    z-index: 1;
+    overflow: auto;
+}
+
+.show{
+    display: block!important;
+}
+.bleucesi{
+    color: #000!important;
+    background-color: #4565AD!important;
+}
+
+div .w3-button:hover{
+background-color:white!important;
+}
 
 .card-img-error{
   display: block;
