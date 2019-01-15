@@ -54,9 +54,7 @@
                             {% block content %}
                             {% endblock %}
                         </p>
-                        <form action="../">
-                            <button class="button-error" type="submit">Retour</button>
-                        </form>
+                            <button class="button-error" type="submit"><a href="javascript:history.go(-2)">Retour{{ prev }}</a></button>
                     </div>
                 </div>
                </div>

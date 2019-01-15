@@ -52,6 +52,11 @@
                         <input id="product_Ref" name="product_Ref" type="hidden" value="{{ product.product_Ref }}">
                         <button class="button-perso" type="submit">Réserver</button>
                     </form>
+                    <form action="../retour/" method="post">
+                        {% csrf_token %}
+                        <input id="product_Ref" name="product_Ref" type="hidden" value="{{ product.product_Ref }}">
+                        <button class="button-perso" type="submit">Retour</button>
+                    </form>
                 </div>
             </div>
         </div>
