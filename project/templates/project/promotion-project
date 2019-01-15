@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}FabLab{% endblock %}
+{% block titre_gauche %}Projet A{{promotion}}{% endblock %}
+
+{% block content %}
+
+    <div style="margin-top: 52px" class="col-lg-9">
+    <div class="row">
+        {% for project in promotion_project_list %}
+        <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+            <div  class="card h-100">
+              <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="">{{ project.project_Name }}</a>
+                    </h4>
+                </div>
+                <div class="card-footer">
+                    <form action="../project_reservation/" method="post">
+                        {% csrf_token %}
+                        <input id="product_Ref" name="product_Ref" type="hidden" value="{{ produit.product_Ref }}">
+                        <button class="button-perso" type="submit">Réserver</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+</div>
+</div>
