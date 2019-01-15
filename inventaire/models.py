@@ -61,7 +61,6 @@ class stock_modification (models.Model):
     first_Name = models.CharField(max_length=100)
     last_Name = models.CharField(max_length=100)
     comment = models.CharField(max_length=400)
-    id_Product = models.IntegerField()
     name_Product = models.CharField(max_length=100)
     modification = models.CharField(max_length=100)
 
