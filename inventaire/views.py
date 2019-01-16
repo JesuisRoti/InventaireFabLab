@@ -155,4 +155,3 @@ def check_login(request):
     else:
         form = loginForm(request.POST or None)
         return render(request,'inventaire/formulaire/login.html', locals())
-    return render(request, 'inventaire/home.html')
