@@ -4,10 +4,10 @@ from inventaire.forms import *
 from datetime import date, time, datetime
 from django.contrib.auth import authenticate, login
 
-def home_inventaire(request):
+def home(request):
     produit = product.objects.all()
 
-    return render(request, 'inventaire/home-inventaire.html', {'oui':produit})
+    return render(request, 'inventaire/home.html', {'oui':produit})
 
 def error(request):
     return render(request, '/error.html')
@@ -45,7 +45,7 @@ def reserver(request):
         else:
             product_ref_final = product_ref
         return render(request, 'inventaire/reservation.html', locals())
-    return render(request, 'inventaire/home-inventaire.html')
+    return render(request, 'inventaire/home.html')
 
 def  show_product(request, categorie):
     id_category = category.objects.filter(category_name=categorie)
@@ -96,7 +96,7 @@ def retour(request):
         else:
             product_ref_final = product_ref
         return render(request, 'inventaire/retour.html', locals())
-    return render(request, 'inventaire/home-inventaire.html')
+    return render(request, 'inventaire/home.html')
 
 def check_login(request, cat_name):
     if request.method == 'POST':
