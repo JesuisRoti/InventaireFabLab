@@ -22,20 +22,6 @@
         </div>
     {% endfor %}
     {% for categorie in cat_list %}
-
-        {% if forloop.first %}
-                <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 no-border" >
-                        <a href="/ajout_projet/"><img class="card-img-top" src="../../static/gestion/Icone_plus.png" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Nouveau Produit</a>
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-        {% endif %}
-
     <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
         <div  class="card h-100">
             <a href="../categorie/{{ categorie.category_name }}"><img class="card-img-top" src="../../static/gestion/Actualite1.jpg" alt=""></a>
@@ -48,9 +34,9 @@
                 <form action="/login/" method="post">
                     <input type="hidden" id="cat_name" name="cat_name" value="{{ categorie.category_name }}">
                     {% csrf_token %}
-                    <input type="submit">
+                    <input type="submit" value="Ajouter un produit">
                 </form>
-                <a href="/ajout_produit/{{ categorie.category_name }}">Ajout</a>
+                <a href="/login/{{ categorie.category_name }}"><img class="card-img-top" src="../../static/gestion/Icone_plus.png" alt=""></a>
             </div>
         </div>
     </div>

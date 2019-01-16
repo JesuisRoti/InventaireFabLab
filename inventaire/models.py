@@ -4,12 +4,14 @@ from django.db import models
 
 class pole (models.Model):
     pole_Name = models.CharField(max_length=50)
+    pole_Ref = models.CharField(max_length=30)
 
     def __int__(self):
         return self.id
 
 class category (models.Model):
     category_name = models.CharField(max_length=100)
+    category_Ref = models.CharField(max_length=30)
     pole_id = models.ForeignKey('pole', on_delete=models.PROTECT)
 
     def __int__(self):

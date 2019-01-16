@@ -98,60 +98,113 @@ def retour(request):
         return render(request, 'inventaire/retour.html', locals())
     return render(request, 'inventaire/home-inventaire.html')
 
-# def ajout_Produit(request):
-#     # if request.method == 'POST':
-#     global categorie_name_final
-#     categorie_name = request.POST.get('cat_name')
-#     form = NouveauProduitForm(request.POST or None)
-#     form2 = ModificationStockForm(request.POST or None)
-#     if not categorie_name:
-#         print (categorie_name_final)
-#         categorie_objet = category.objects.filter(category_name=categorie_name_final)
-#         if form.is_valid() and form2.is_valid():
-#             form = form.save(commit=False)
-#             form2 = form2.save(commit=False)
-#             form.id_Category = categorie_objet[0]
-#             form2.name_Product = form.product_Name
-#             form2.modification = "ajout"
-#             form.save()
-#             form2.save()
-#             return redirect ('../')
-#     else:
-#         categorie_name_final = categorie_name
-#         return render(request, 'inventaire/formulaire/nouveau_produit.html', locals())
-#     cat_name = local
-#     print (cat_name)
-#     return render(request, 'inventaire/formulaire/nouveau_produit.html', locals())
-
-
-def check_login(request):
+def check_login(request, cat_name):
     if request.method == 'POST':
-        global mdp, nomdecompte, cat_name_final
-        form = loginForm(request.POST or None)
+        global mdp, nomdecompte
         mdp = request.POST.get('mdp')
         nomdecompte = request.POST.get('nomdecompte')
-        cat_name = request.POST.get('cat_name')
         user = authenticate(request, username=nomdecompte, password=mdp)
 
         if user is not None:
             login(request, user)
-            print (cat_name_final)
-            form = NouveauProduitForm(request.POST or None)
-            form2 = ModificationStockForm(request.POST or None)
-            if cat_name_final:
-                categorie_objet = category.objects.filter(category_name=cat_name_final)
-                if form.is_valid() and form2.is_valid():
-                    form = form.save(commit=False)
-                    form2 = form2.save(commit=False)
-                    form.id_Category = categorie_objet[0]
-                    form2.name_Product = form.product_Name
-                    form2.modification = "ajout"
-                    form.save()
-                    form2.save()
-                    return redirect('../')
+            return redirect('nouveau_produit', cat_name)
         else:
-            cat_name_final = cat_name
-        return render(request,'inventaire/formulaire/login.html', locals())
+            id_error = 5
+            return render(request, 'error.html', {'id_error': id_error})
     else:
         form = loginForm(request.POST or None)
-        return render(request,'inventaire/formulaire/login.html', locals())
+        return render(request,'inventaire/formulaire/login.html', locals(), cat_name)
+
+
+def ajout_Produit(request, cat_name):
+    global categorie_name_final
+    categorie_name = cat_name
+    form = NouveauProduitForm(request.POST or None)
+    form2 = ModificationStockForm(request.POST or None)
+    if request.method == 'POST':
+        print (categorie_name_final)
+        categorie_objet = category.objects.filter(category_name=categorie_name_final)
+        if form.is_valid() and form2.is_valid():
+            form = form.save(commit=False)
+            form2 = form2.save(commit=False)
+            if form.available_Product <= form.stock:
+                form.id_Category = categorie_objet[0]
+                categorie_ref = categorie_objet[0].category_Ref
+                pole_id = categorie_objet[0].pole_id
+                pole_object = pole.objects.filter(pole_Name=pole_id.pole_Name)
+                pole_ref = pole_object[0].pole_Ref
+                product_len = product.objects.count() + 1
+                product_ref = pole_ref + categorie_ref + str(product_len)
+                form2.name_Product = form.product_Name
+                form.product_Ref = product_ref
+                form2.modification = "ajout"
+                form.save()
+                form2.save()
+                id_success = 4
+                id_button = "/pole"
+                return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})
+            else:
+                id_error = 4
+                return render(request, 'error.html', {'id_error': id_error})
+    else:
+        categorie_name_final = categorie_name
+        return render(request, 'inventaire/formulaire/nouveau_produit.html', locals(), cat_name)
+    cat_name = local
+    print (cat_name)
+    return render(request, 'inventaire/formulaire/nouveau_produit.html', locals(), cat_name)
+
+
+# def check_login(request):
+#     if request.method == 'POST':
+#         global mdp, nomdecompte, cat_name_final, i
+#         mdp = request.POST.get('mdp')
+#         nomdecompte = request.POST.get('nomdecompte')
+#         cat_name = request.POST.get('cat_name')
+#         user = authenticate(request, username=nomdecompte, password=mdp)
+#
+#         if user is not None:
+#             login(request, user)
+#             form1 = NouveauProduitForm(request.POST or None)
+#             form2 = ModificationStockForm(request.POST or None)
+#             if not cat_name:
+#                 if form1.is_valid():
+#                     print ('oui')
+#                 if form2.is_valid():
+#                     print ('form2')
+#                 categorie_objet = category.objects.filter(category_name=cat_name_final)
+#                 categorie_ref = categorie_objet[0].category_Ref
+#                 pole_id = categorie_objet[0].pole_id
+#                 pole_object = pole.objects.filter(pole_Name=pole_id.pole_Name)
+#                 pole_ref = pole_object[0].pole_Ref
+#                 product_len = product.objects.count() + 1
+#                 product_ref = pole_ref + categorie_ref + str(product_len)
+#                 print ('ebug4')
+#                 if form1.is_valid() and form2.is_valid():
+#                     form1 = form1.save(commit=False)
+#                     form2 = form2.save(commit=False)
+#                     print ('ebug3')
+#                     if form1.available_Product <= form1.stock:
+#                         form1.id_Category = categorie_objet[0]
+#                         form2.name_Product = form1.product_Name
+#                         form2.modification = "ajout"
+#                         print ('ebug2')
+#
+#                         # form1.save()
+#                         # form2.save()
+#                         return redirect('../')
+#                     else:
+#                         id_error = 6
+#                         return redirect('error.html', {'id_error': id_error})
+#         else:
+#             cat_name_final = cat_name
+#             print('oui'+user)
+#             form1 = loginForm(request.POST or None)
+#             return render(request, 'inventaire/formulaire/login.html', locals())
+#
+#         print ('cat_name_final :' + cat_name_final)
+#         return render(request,'inventaire/formulaire/login.html', locals())
+#     else:
+#         print('else')
+#         form = loginForm(request.POST or None)
+#         return render(request,'inventaire/formulaire/login.html', locals())
+

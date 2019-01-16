@@ -3,7 +3,7 @@
 {% block title %}Nouveau Produit{% endblock %}
 
 {% block content %}
-<form  action="{% url "nouveau_produit" %}" method="post" style="margin-top: 100px">
+<form  action="{% url "nouveau_produit" cat_name=cat_name %}" method="post" style="margin-top: 100px">
         {% csrf_token %}
         {{ form.as_p }}
     {{ form2.as_p }}
