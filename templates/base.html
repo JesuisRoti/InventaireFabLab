@@ -15,73 +15,86 @@
 </a>
 <header></header>
 
-   <section id="content">
+   <section id="content" style="display:flex;">
        <!-- Navigation -->
-       <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-        <a href="../home"><img src="http://www.alsacetech.org/wp-content/uploads/2018/12/Cesi_Logo_INGENIEUR_quadri.png" alt="OUI" width="180"></a>
-    </div>
+       <nav class="navbar navbar-expand-lg fixed-top" style="height:10%;">
+            <div class="container" style="height:80%;">
+                <a href="../"><img src="http://www.alsacetech.org/wp-content/uploads/2018/12/Cesi_Logo_INGENIEUR_quadri.png" alt="OUI" width="180"></a>
+            </div>
        </nav>
 
-       <div class="container">
+       <div class="container" >
 
            <div class="row">
 
-               <div class="col-lg-3">
+               <div class="col-lg-3" >
+                    <div id="LeftMenu">
+                       <h1 class="my-4">{% block titre_gauche %}Inventaire{% endblock %}</h1>
+                       <div class="sidebar w3-bar-block  w3-card" style="width:200px;">
+                          <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
+                              <a href="/pole/" class="w3-button w3-left-align">Inventaire</a>
+                              <i class="fa fa-caret-down"></i>
+                          </button>
+                           <div id="demoAcc" class="w3-hide w3-white w3-card">
+                               <ul class="w3-bar-item w3-button">
+                                   <li style="list-style: none"><a href="../categorie/Matériel%20Electronique" class="list-group-item-first-enfant">Catégorie 1</a></li>
+                                   <li style="list-style: none"><a href="../" class="list-group-item-enfant">Catégorie 2</a> </li>
+                                   <li style="list-style: none"><a href="../" class="list-group-item-enfant">Catégorie 3</a> </li>
+                                   <li style="list-style: none"><a href="../" class="list-group-item-enfant">Catégorie 4</a> </li>
+                               </ul>
+                           </div>
+                            <button class="w3-button w3-block w3-left-align" onclick="myAccFunc2()">
+                              <a href="../projet/" class="w3-button  w3-left-align">Projets</a>
+                              <i class="fa fa-caret-down"></i>
+                            </button>
 
-                   <h1 class="my-4">{% block titre_gauche %}Inventaire{% endblock %}</h1>
-                   <div class="sidebar w3-bar-block  w3-card" style="width:200px;">
-                      <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
-                          <a href="/pole/" class="w3-button w3-left-align">Inventaire</a>
-                          <i class="fa fa-caret-down"></i>
-                      </button>
-                       <div id="demoAcc" class="w3-hide w3-white w3-card">
-                           <ul class="w3-bar-item w3-button">
-                               <li style="list-style: none"><a href="../categorie/Matériel%20Electronique" class="list-group-item-first-enfant">Catégorie 1</a></li>
-                               <li style="list-style: none"><a href="../" class="list-group-item-enfant">Catégorie 2</a> </li>
-                               <li style="list-style: none"><a href="../" class="list-group-item-enfant">Catégorie 3</a> </li>
-                               <li style="list-style: none"><a href="../" class="list-group-item-enfant">Catégorie 4</a> </li>
-                           </ul>
+                           <div id="demoAcc2" class="w3-hide w3-white w3-card">
+                               <ul class="w3-bar-item w3-button">
+                                   <li style="list-style: none"><a href="../projet/1" class="list-group-item-first-enfant">A1</a></li>
+                                   <li style="list-style: none"><a href="../projet/2" class="list-group-item-enfant">A2</a> </li>
+                                   <li style="list-style: none"><a href="../projet/3" class="list-group-item-enfant">A3</a> </li>
+                                   <li style="list-style: none"><a href="../projet/4" class="list-group-item-enfant">A4</a> </li>
+                                   <li style="list-style: none"><a href="../projet/5" class="list-group-item-enfant">A5</a> </li>
+                               </ul>
+                           </div>
+                           <button class="w3-button w3-block w3-left-align" >
+                              <a href="../../admin" class="w3-button  w3-left-align">Paramètres</a>
+                          </button>
+                           <button class="w3-button w3-block w3-left-align">
+                              <a href="../historique" class="w3-button  w3-left-align">Calendrier</a>
+                          </button>
                        </div>
-                        <button class="w3-button w3-block w3-left-align" onclick="myAccFunc2()">
-                          <a href="../projet/" class="w3-button  w3-left-align">Projets</a>
-                          <i class="fa fa-caret-down"></i>
-                      </button>
-                       <div id="demoAcc2" class="w3-hide w3-white w3-card">
-                           <ul class="w3-bar-item w3-button">
-                               <li style="list-style: none"><a href="../projet/1" class="list-group-item-first-enfant">A1</a></li>
-                               <li style="list-style: none"><a href="../projet/2" class="list-group-item-enfant">A2</a> </li>
-                               <li style="list-style: none"><a href="../projet/3" class="list-group-item-enfant">A3</a> </li>
-                               <li style="list-style: none"><a href="../projet/4" class="list-group-item-enfant">A4</a> </li>
-                               <li style="list-style: none"><a href="../projet/5" class="list-group-item-enfant">A5</a> </li>
-                           </ul>
-                       </div>
-                       <button class="w3-button w3-block w3-left-align" >
-                          <a href="../../admin" class="w3-button  w3-left-align">Paramètres</a>
-                      </button>
-                       <button class="w3-button w3-block w3-left-align">
-                          <a href="../historique" class="w3-button  w3-left-align">Calendrier</a>
-                      </button>
-
-                   </div>
-
+                    </div>
                </div>
        {% block content %}
        {% endblock %}
+
            </div>
+
+
        </div>
 
    </section>
+<<<<<<< HEAD
 <footer class="py-xl-5 bg-dark" style="bottom:0; width: 100%;">
       <div class="container">
         <p class="m-0 text-center text-white">Developed by / CESI</p>
       </div>
       <!-- /.container -->
     </footer>
+=======
+
+>>>>>>> master
 
     <!-- Bootstrap core JavaScript -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
+<footer class="py-xl-5 bg-dark" style="height:10%;" >
+      <div class="container">
+        <p class="m-0 text-center text-white">Developed by / CESI</p>
+      </div>
+      <!-- /.container -->
+ </footer>
 </body>
 </html>
