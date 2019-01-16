@@ -4,11 +4,12 @@
 
 
 {% block content %}
-<form  action="{% url "login_produit" %}" method="post" style="margin-top: 100px">
+<form  action="{% url "login_produit" cat_name=cat_name%}" method="post" style="margin-top: 100px">
         {% csrf_token %}
-        {{ form.as_p }}
+    {{ form.as_p }}
+        {{ form1.as_p }}
     {{ form2.as_p }}
-    <input type="hidden" name="cat_name"  id="cat_name" value="">
+{#    <input type="hidden" name="cat_name"  id="cat_name" value="cat_name">#}
     <input style="align-content: center" type="submit" value="Submit" />
 </form>
 {% endblock %}

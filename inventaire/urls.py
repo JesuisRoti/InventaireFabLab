@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
 
 urlpatterns = [
@@ -10,6 +10,6 @@ urlpatterns = [
     path('pole/', views.show_pole),
     path('categorie/<str:categorie>', views.show_product),
     path('pole/<str:pole_name>',views.show_category),
-    # path('ajout_produit/', views.ajout_Produit, name="nouveau_produit"),
-    path('login/', views.check_login, name="login_produit")
+    re_path(r'^ajout_produit/(?P<cat_name>.+)', views.ajout_Produit, name="nouveau_produit"),
+    re_path(r'^login/(?P<cat_name>.+)', views.check_login, name="login_produit")
 ]
