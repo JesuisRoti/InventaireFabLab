@@ -6,6 +6,7 @@
 
 body {
   padding-top: 54px;
+  height:100%;
 }
 
 .bodybg {
@@ -155,9 +156,10 @@ a{
 }
 
 #content{
+  display:block;
   background-color: white;
+  min-height:90%;
 }
-
 .card-title{
   text-align: center;
   margin-top: -10px;
@@ -227,7 +229,21 @@ background-color:white!important;
   display: inline-block;
   border-radius: 8px;
 }
+html {
+  height: 100%;
+}
+footer{
+display: block;
+    right:0px;
+   left:0px;
+   bottom:0px;
+   width:100%;
+}
 
+#LeftMenu{
+    position:fixed;
+    width:6%;
+}
 .required{
   /*CSS du formulaire de Réservation de produit*/
 }

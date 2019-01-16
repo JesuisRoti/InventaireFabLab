@@ -34,16 +34,15 @@
                 <form action="/login/" method="post">
                     <input type="hidden" id="cat_name" name="cat_name" value="{{ categorie.category_name }}">
                     {% csrf_token %}
-                    <input type="submit" value="Ajouter un produit">
                 </form>
-                <a href="/login/{{ categorie.category_name }}"><img class="card-img-top" src="../../static/gestion/Icone_plus.png" alt=""></a>
+                <a href="/login/{{ categorie.category_name }}"><img style="width:35%" src="../../static/gestion/Icone_plus.png" alt=""></a>
             </div>
         </div>
     </div>
     {% endfor %}
     {% for product in cat_products %}
         <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
-            <div  class="card h-100">
+            <div  class="card">
               <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
                 <div class="card-body">
                     <h4 class="card-title">

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Nouveau Produit{% endblock %}
+{% block titre_gauche %}Nouveau Produit{% endblock %}
 
 {% block content %}
 <form  action="{% url "nouveau_produit" cat_name=cat_name %}" method="post" style="margin-top: 100px">
