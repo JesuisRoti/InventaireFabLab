@@ -6,7 +6,7 @@ urlpatterns = [
     path('retour/', views.retour, name="retour"),
     path('error/', views.error, name="erreur"),
     path('success/', views.success, name="succes"),
-    path('', views.home_inventaire),
+    path('', views.home),
     path('pole/', views.show_pole),
     path('categorie/<str:categorie>', views.show_product),
     path('pole/<str:pole_name>',views.show_category),
