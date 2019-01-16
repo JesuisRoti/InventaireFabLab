@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ fiche.title }} {% endblock %}
+{% block titre_gauche %}{{ fiche.title }} {% endblock %}
+
+{% block content %}
+    <p>Article paru le : {{ fiche.date }}</p>
+    <p>{{ fiche.article }}</p>
+
+{% endblock %}
