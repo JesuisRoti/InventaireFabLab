@@ -3,6 +3,7 @@ from .models import reservation, product, stock_modification
 from django.forms.widgets import HiddenInput
 
 class ReservationForm (forms.ModelForm):
+    required_css_class = 'required'
     class Meta:
         model = reservation
         widgets = {'id_Product': forms.HiddenInput()}
@@ -11,7 +12,7 @@ class ReservationForm (forms.ModelForm):
 class RetourForm (forms.ModelForm):
     class Meta:
         model = reservation
-        widgets = {'id_Product': forms.HiddenInput(), 'return_Date': forms.HiddenInput}
+        widgets = {'id_Product': forms.HiddenInput(), 'return_Date': forms.HiddenInput()}
         exclude = ('starting_Date', 'quantity',)
 
 class NouveauProduitForm(forms.ModelForm):

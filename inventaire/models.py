@@ -26,8 +26,8 @@ class product (models.Model):
         return self.id
 
 class reservation (models.Model):
-    first_Name = models.CharField(max_length=100)
-    last_Name = models.CharField(max_length=100)
+    first_Name = models.CharField(max_length=100, verbose_name = "Prénom")
+    last_Name = models.CharField(max_length=100, verbose_name = "Nom")
     promotion_choice = (
         ('A1', 'A1'),
         ('A2', 'A2'),
@@ -37,13 +37,13 @@ class reservation (models.Model):
     )
     promotion = models.CharField(max_length=4, choices=promotion_choice, default='A1')
     starting_Date = models.DateField(auto_now=True)
-    quantity = models.PositiveIntegerField(null=False)
-    return_Quantity = models.PositiveIntegerField(null=True, blank=True)
-    return_Date = models.DateField(null=True, blank=True)
+    quantity = models.PositiveIntegerField(null=False, verbose_name = "Quantité")
+    return_Quantity = models.PositiveIntegerField(null=True, blank=True, verbose_name = "Quantité rendue")
+    return_Date = models.DateField(null=True, blank=True, verbose_name = "Date de retour")
     id_Product = models.ForeignKey('product', on_delete=models.PROTECT, null=True, blank=True)
 
 class project_List (models.Model):
-    project_Name = models.CharField(max_length=100)
+    project_Name = models.CharField(max_length=100, verbose_name = "Nom du projet")
     promotion_choice = (
         ('A1', 'A1'),
         ('A2', 'A2'),

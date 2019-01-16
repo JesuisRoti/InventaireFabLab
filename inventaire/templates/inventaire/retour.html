@@ -3,9 +3,9 @@
 {% block title %}Retour{% endblock %}
 
 {% block content %}
-<form  action="{% url "retour" %}" method="post" style="margin-top: 100px">
+<form action="{% url "retour" %}" method="post" style="margin-top: 100px">
         {% csrf_token %}
         {{ form.as_p }}
-    <input style="align-content: center" type="submit" value="Submit" />
+    <input style="align-content: center" type="submit" value="Validation" />
 </form>
 {% endblock %}
