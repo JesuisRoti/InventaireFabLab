@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Reservation{% endblock %}
+{% block titre_gauche %}Réservation{% endblock %}
 
 {% block content %}
 <form action="{% url "reservation" %}" method="post" style="margin-top: 100px">
         {% csrf_token %}
         {{ form.as_p }}
-    <input class="button-error" style="align-content: center" type="submit" value="Validation" />
+    <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
 </form>
 {% endblock %}

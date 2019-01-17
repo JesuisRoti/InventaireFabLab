@@ -61,11 +61,11 @@ def show_pole(request):
 
 
 def retour(request):
+    global product_ref_final
+    form = RetourForm(request.POST or None)
+    date = datetime.now()
     if request.method == 'POST':
-        global  product_ref_final
         product_ref = request.POST.get('product_Ref')
-        form = RetourForm(request.POST or None)
-        date = datetime.now()
         if not (product_ref):
             if form.is_valid():
                 form = form.save(commit=False)
@@ -150,7 +150,6 @@ def ajout_Produit(request, cat_name):
         categorie_name_final = categorie_name
         return render(request, 'inventaire/formulaire/nouveau_produit.html', locals(), cat_name)
     cat_name = local
-    print (cat_name)
     return render(request, 'inventaire/formulaire/nouveau_produit.html', locals(), cat_name)
 
 
