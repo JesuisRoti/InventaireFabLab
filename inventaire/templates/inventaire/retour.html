@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Retour{% endblock %}
+{% block titre_gauche %}Retour{% endblock %}
 
 {% block content %}
 <form action="{% url "retour" %}" method="post" style="margin-top: 100px">
         {% csrf_token %}
         {{ form.as_p }}
-    <input style="align-content: center" type="submit" value="Validation" />
+    <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
 </form>
 {% endblock %}
