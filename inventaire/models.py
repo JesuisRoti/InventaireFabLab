@@ -18,10 +18,10 @@ class category (models.Model):
         return self.id
 
 class product (models.Model):
-    product_Name = models.CharField(max_length=100)
+    product_Name = models.CharField(max_length=100, verbose_name="Nom du Produit")
     product_Ref = models.CharField(max_length=200)
-    available_Product = models.PositiveIntegerField(null=True)
-    stock = models.PositiveIntegerField(null=True)
+    available_Product = models.PositiveIntegerField(null=True, verbose_name="Quantité Disponible")
+    stock = models.PositiveIntegerField(null=True, verbose_name="Quantité Totale")
     id_Category = models.ForeignKey(category, on_delete=models.CASCADE)
 
     def __int__(self):
@@ -60,10 +60,10 @@ class project_List (models.Model):
         return self.project_Name
 
 class stock_modification (models.Model):
-    first_Name = models.CharField(max_length=100)
-    last_Name = models.CharField(max_length=100)
-    comment = models.CharField(max_length=400)
-    name_Product = models.CharField(max_length=100)
+    first_Name = models.CharField(max_length=100, verbose_name="Prénom")
+    last_Name = models.CharField(max_length=100, verbose_name="Nom")
+    comment = models.CharField(max_length=400, blank=True, verbose_name="Commentaire")
+    name_Product = models.CharField(max_length=100, verbose_name="Nom du Produit")
     modification = models.CharField(max_length=100)
 
 class project_Reservation (models.Model):

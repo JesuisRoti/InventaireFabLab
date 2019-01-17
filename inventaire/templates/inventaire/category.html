@@ -10,7 +10,7 @@
         {% for pole in poles_list %}
         <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
             <div  class="card h-100">
-              <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+              <a href="{{ pole.pole_Name }}"><img class="card-img-top" src="../../static/gestion/outils.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
                         <a href="{{ pole.pole_Name }}">{{ pole.pole_Name }}</a>
@@ -47,7 +47,7 @@
               <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
                 <div class="card-body">
                     <h4 class="card-title">
-                        <a href="">{{ product.product_Name }}</a>
+                        <p>{{ product.product_Name }}</p>
                     </h4>
                     <p class="card-text-ref"> #{{ product.product_Ref }}</p>
                     <p class="card-text"> {{ product.available_Product }}/{{ product.stock }}</p>
