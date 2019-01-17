@@ -230,6 +230,7 @@ background-color:white!important;
   display: inline-block;
   border-radius: 8px;
 }
+
 html {
   height: 100%;
 }
@@ -241,7 +242,7 @@ footer{
   width:100%;
 }
 
-.button-validation {
+.button-validation{
   color: black;
   font-size: 15px;
   margin-top: 5px;
@@ -255,6 +256,7 @@ footer{
     position:fixed;
     width:6%;
 }
+
 .required{
   /*CSS du formulaire de Réservation de produit*/
 }
