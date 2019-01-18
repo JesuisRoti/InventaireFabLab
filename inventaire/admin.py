@@ -10,9 +10,13 @@ class ProduitAdmin(admin.ModelAdmin):
     admin.site.site_title = 'Parametres'
     admin.site.index_title = 'FabLab'
 
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('first_Name', 'last_Name', 'return_Date')
+
+
 admin.site.register(pole)
 admin.site.register(product, ProduitAdmin)
-admin.site.register(reservation)
+admin.site.register(reservation, ReservationAdmin)
 admin.site.register(category)
 admin.site.register(project_Reservation)
 admin.site.register(project_List)

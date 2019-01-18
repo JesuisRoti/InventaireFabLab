@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}FabLab{% endblock %}
+{% block titre_gauche %}Calendrier{% endblock %}
+
+{% block content %}
+
+ <div style="margin-top: 52px" class="col-lg-9">
+    <div class="row">
+    {% for items, y, g in date_list %}
+        <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+            <div  class="card h-100">
+              <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="/daily/">{{ items|date:"d/m/Y" }}</a>
+                    </h4>
+                </div>
+                {% for result in y %}
+                    <p class="card-text">
+                    {% if result != 0 %}
+                        {{ result }}
+                    {% endif %}
+                    </p>
+
+                {% endfor %}
+                <div class="card-footer">
+                    <form action="/daily/" method="post">
+                        {% csrf_token %}
+
+                        <input type="hidden" value="{{ items|date:"Y-m-d" }}" id="date_jour" name="date_jour">
+                        <input type="submit" value="Voir les retours">
+                    </form>
+                </div>
+            </div>
+        </div>
+{#    {% endfor %}#}
+    {% endfor %}
+</div>
+</div>
+{% endblock %}
