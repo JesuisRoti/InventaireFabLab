@@ -31,9 +31,9 @@
                     <div id="LeftMenu">
                        <h1 class="my-4">{% block titre_gauche %}Inventaire{% endblock %}</h1>
                        <div class="sidebar w3-bar-block  w3-card" style="width:200px;">
-                          <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
+                          <button class="w3-button w3-block w3-left-align" >
                               <a href="/pole/" class="w3-button w3-left-align">Inventaire</a>
-                              <i class="fa fa-caret-down"></i>
+                              <i class="fa fa-caret-down" onclick="myAccFunc()"></i>
                           </button>
                            <div id="demoAcc" class="w3-hide w3-white w3-card">
                                <ul class="w3-bar-item w3-button">
@@ -43,9 +43,9 @@
                                    <li style="list-style: none"><a href="../" class="list-group-item-enfant">Catégorie 4</a> </li>
                                </ul>
                            </div>
-                            <button class="w3-button w3-block w3-left-align" onclick="myAccFunc2()">
+                            <button class="w3-button w3-block w3-left-align" >
                               <a href="../projet/" class="w3-button  w3-left-align">Projets</a>
-                              <i class="fa fa-caret-down"></i>
+                              <i class="fa fa-caret-down" onclick="myAccFunc2()"></i>
                             </button>
 
                            <div id="demoAcc2" class="w3-hide w3-white w3-card">
