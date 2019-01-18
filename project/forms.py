@@ -1,7 +1,6 @@
 from django import forms
 from inventaire.models import *
 from django.forms.widgets import HiddenInput
-from dal import autocomplete
 
 
 class AjoutProjetForm (forms.ModelForm):
@@ -14,11 +13,7 @@ class AjoutProjetMatForm(forms.ModelForm):
     class Meta:
         model = project_material
         exclude = ('project_Name',)
-        widget = {
-            'id_Product': autocomplete.ModelSelect2(
-                url='select2_fk'
-            )
-        }
+
 
         # id_Product = forms.ModelChoiceField(
         #     queryset=product.objects.all(),

@@ -3,17 +3,10 @@
 {% block titre_gauche %}Nouveau projet{% endblock %}
 
 {% block content %}
-<script type="text/javascript">
-function script(input1){
-document.getElementById("input2").value = input1.value;
-}
-</script>
 <form  action="{% url "new_project" %}" method="post" style="margin-top: 100px">
         {% csrf_token %}
         {{ form.as_p }}
         {{ form2.as_p }}
-        <input name="product_Name_mat" type="hidden" />
     <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
 </form>
-{{ form.media }}
 {% endblock %}

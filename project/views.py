@@ -3,7 +3,6 @@ from inventaire.models import project_List,product
 from django.template.loader import render_to_string
 from .forms import *
 from django.contrib.auth import authenticate, login
-from dal import autocomplete
 
 # Create your views here.
 
@@ -53,23 +52,3 @@ def new_project(request):
             id_button = "/projet"
             return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})
     return render (request, 'project/nouveau_projet.html', locals())
-
-
-class ProductAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-        if not self.request.user.is_authenticated():
-            return product.objects.none()
-
-        qs = product.objects.all()
-
-        if self.q:
-            qs = qs.filter(product_Name__istartswith=self.q)
-
-        return qs
-
-    def get_result_label(self, item):
-        return item.product_Name
-
-    def get_selected_result_label(self, item):
-        return item.product_Name
