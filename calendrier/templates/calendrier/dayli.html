@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}FabLab{% endblock %}
+{% block titre_gauche %}Calendrier{% endblock %}
+
+{% block content %}
+
+ <div style="margin-top: 52px" class="col-lg-9">
+    <div class="row">
+    {% for reservation in reservations %}
+        <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+            <div  class="card h-100">
+              <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href=""> {{ reservation.product_Name }}</a>
+                    </h4>
+                    <p class="card-text-ref"> X{{ reservation.quantity }}</p>
+                </div>
+                <div class="card-footer">Emprunté par : {{ reservation.first_Name }} {{ reservation.last_Name }}
+                </div>
+            </div>
+        </div>
+            {% empty %}
+                Aucun retour prévu pour ce jour.
+    {% endfor %}
+{% endblock %}
+</div>
+</div>

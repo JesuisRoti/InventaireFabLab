@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'inventaire',
     'project',
     'accueil',
+    'calendrier',
 ]
 
 MIDDLEWARE = [
