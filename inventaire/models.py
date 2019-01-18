@@ -27,6 +27,10 @@ class product (models.Model):
     def __int__(self):
         return self.id
 
+    def __str__(self):
+        return self.product_Name
+
+
 class reservation (models.Model):
     first_Name = models.CharField(max_length=100, verbose_name = "Prénom")
     last_Name = models.CharField(max_length=100, verbose_name = "Nom")
@@ -45,7 +49,7 @@ class reservation (models.Model):
     id_Product = models.ForeignKey('product', on_delete=models.PROTECT, null=True, blank=True)
 
 class project_List (models.Model):
-    project_Name = models.CharField(max_length=100, verbose_name = "Nom du projet")
+    project_Name = models.CharField(max_length=100, verbose_name="Nom du projet")
     promotion_choice = (
         ('A1', 'A1'),
         ('A2', 'A2'),
