@@ -4,7 +4,9 @@
 {% block titre_gauche %}{{ fiche.title }} {% endblock %}
 
 {% block content %}
-    <p>Article paru le : {{ fiche.date }}</p>
+<div style="margin-top: 74px" class="col-lg-9">
+    <p style="font-style: italic;" >Article paru le : {{ fiche.date }}</p>
     <p>{{ fiche.article }}</p>
+</div>
 
 {% endblock %}

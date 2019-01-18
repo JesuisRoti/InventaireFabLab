@@ -51,13 +51,13 @@
                     <p class="card-text-ref"> #{{ product.product_Ref }}</p>
                     <p class="card-text"> {{ product.available_Product }}/{{ product.stock }}</p>
                 </div>
-                <div class="card-footer">
-                    <form action="../reservation/" method="post">
+                <div class="card-footer flex">
+                    <form action="../reservation/" method="post" class="half-w" >
                         {% csrf_token %}
                         <input id="product_Ref" name="product_Ref" type="hidden" value="{{ product.product_Ref }}">
                         <button class="button-perso" type="submit">Réserver</button>
                     </form>
-                    <form action="../retour/" method="post">
+                    <form action="../retour/" method="post" class="half-w">
                         {% csrf_token %}
                         <input id="product_Ref" name="product_Ref" type="hidden" value="{{ product.product_Ref }}">
                         <button class="button-perso" type="submit">Retour</button>

@@ -148,9 +148,17 @@ body {
   margin-right: 2%;
   display: inline-block;
   border-radius: 8px;
-  width: 46%;
+  width:90%;
 }
 
+.flex
+{
+    display:flex;
+}
+
+.half-w{
+    width:50%;
+}
 a{
   color: #4565AD;
 }
