@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from inventaire.models import project_List
+from inventaire.models import project_List,product
 from django.template.loader import render_to_string
 from .forms import *
 from django.contrib.auth import authenticate, login
-
 
 # Create your views here.
 
@@ -39,9 +38,16 @@ def check_login(request):
 
 def new_project(request):
     form = AjoutProjetForm(request.POST or None)
+    form2 = AjoutProjetMatForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
+            form = form.save(commit=False)
+            name_Project = form.project_Name
             form.save()
+            queryset = project_List.objects.filter(project_Name=name_Project)
+            form2 = form2.save(commit=False)
+            form2.project_Name = queryset[0]
+            form2.save()
             id_success = 3
             id_button = "/projet"
             return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})

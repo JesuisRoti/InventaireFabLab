@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'inventaire',
     'project',
     'accueil',
+    'calendrier',
+    'import_export',
 ]
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

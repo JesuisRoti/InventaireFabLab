@@ -6,6 +6,7 @@
 <form  action="{% url "new_project" %}" method="post" style="margin-top: 100px">
         {% csrf_token %}
         {{ form.as_p }}
+        {{ form2.as_p }}
     <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
 </form>
 {% endblock %}
