@@ -71,8 +71,8 @@ class stock_modification (models.Model):
     modification = models.CharField(max_length=100)
 
 class project_Reservation (models.Model):
-    last_Name = models.CharField(max_length=100)
-    first_Name = models.CharField(max_length=100)
+    last_Name = models.CharField(max_length=100, blank = True)
+    first_Name = models.CharField(max_length=100, blank = True)
     promotion_choice = (
         ('A1', 'A1'),
         ('A2', 'A2'),
@@ -81,10 +81,11 @@ class project_Reservation (models.Model):
         ('A5', 'A5'),
     )
     promotion = models.CharField(max_length=4, choices=promotion_choice, default='A1')
-    starting_Date = models.DateField()
-    return_Date = models.DateField(blank=True)
+    starting_Date = models.DateField(blank = True, null = True)
+    return_Date = models.DateField(blank=True, null = True)
+    project_Name = models.ForeignKey('project_List', on_delete=models.PROTECT)
 
-    def __str__(self):
+    def __int__(self):
         return self.id
 
 class project_material (models.Model):

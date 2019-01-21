@@ -84,12 +84,11 @@ def retour(request):
                 else:
                     for retour in retour:
                         retour.return_Date = date.date()
-                        retour.save(update_fields=['return_Date'])
                         retour.return_Quantity = form.return_Quantity
-                        retour.save(update_fields=['return_Quantity'])
+                        retour.save()
                         for produit in produit:
                             produit.available_Product += form.return_Quantity
-                            produit.save(update_fields=['available_Product'])
+                            produit.save()
                     id_success = 2
                     id_button = "/pole"
                     return render(request, 'success.html', {'id_success': id_success, 'id_button':id_button})

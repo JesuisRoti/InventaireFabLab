@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Réserver un projet{% endblock %}
+{% block titre_gauche %}Réserver un projet{% endblock %}
+
+{% block content %}
+
+<form  action="{% url "reservation_projet_form" project_name=project_name first_name=first_name %}" method="post" style="margin-top: 100px">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
+</form>
+
+{% endblock %}

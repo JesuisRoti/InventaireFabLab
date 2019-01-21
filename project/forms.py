@@ -24,3 +24,12 @@ class AjoutProjetMatForm(forms.ModelForm):
 class loginForm(forms.Form):
     nomdecompte = forms.CharField(max_length=100, label="Nom de compte")
     mdp = forms.CharField(widget=forms.PasswordInput, max_length=100, label = "Mot de passe")
+
+class LaunchProjectForm(forms.Form):
+    nb_project = forms.IntegerField(label="Nombre de groupe de projet")
+
+class ReservationProjectForm(forms.ModelForm):
+    class Meta:
+        model = project_Reservation
+        # widgets = {'project_Name': forms.HiddenInput()}
+        exclude = ('starting_Date', 'return_Date', 'project_Name')
