@@ -10,18 +10,22 @@
         {% for project in promotion_project_list %}
         <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
             <div  class="card h-100">
-              <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+                <form action="/reservation_projet" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" id="project_name" name="project_name" value="{{ project.project_Name }}">
+                </form>
+                <a href="/reservation_projet/{{ project.project_Name }}"><img class="card-img-top" src="../../static/gestion/outils.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
-                        <a href="">{{ project.project_Name }}</a>
+                        <a href="/reservation_projet/{{ project.project_Name }}">{{ project.project_Name }}</a>
                     </h4>
                 </div>
                 <div class="card-footer">
-                    <form action="../project_reservation/" method="post">
+                    <form action="/login_launch/" method="post">
                         {% csrf_token %}
-                        <input id="product_Ref" name="product_Ref" type="hidden" value="{{ produit.product_Ref }}">
-                        <button class="button-perso" type="submit">Réserver</button>
+                        <input type="hidden" id="project_name" name="project_name" value="{{ project.project_Name }}">
                     </form>
+                    <a href="/login_launch/{{ project.project_Name }}/{{ promotion }}"><img style="width:35%" src="../../static/gestion/Icone_plus.png" alt=""></a>
                 </div>
             </div>
         </div>
