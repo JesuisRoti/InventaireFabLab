@@ -43,7 +43,6 @@ def reservation_projet(request, project_name):
 def promotion_project(request, promotion):
 
     promotion_project_list = project_List.objects.filter(promotion='A'+str(promotion))
-    print(promotion_project_list)
     return render(request, 'project/promotion-project', {'promotion': promotion,
                                                          'promotion_project_list': promotion_project_list})
 
