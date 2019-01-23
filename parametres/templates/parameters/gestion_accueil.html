@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Gestion Accueil {% endblock %}
+{% block titre_gauche %} Gestion Accueil {% endblock %}
+
+{% block content %}
+    <div class="col-lg-9">
+        <div class="row">
+            {% for fiche_secu in secu %}
+                <div style="padding-top: 94px" class="col-lg-4 col-md-6 mb-4">
+                    <div  class="card h-100">
+                        <img class="card-img-top" src="../../static/assert/logo_param.jpg" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="">{{ fiche_secu.title }}</a>
+                            </h4>
+                            <p class="card-text">{{ fiche_secu.article|truncatewords:10 }}</p>
+                            <p class="card-text-ref">{{ fiche_secu.date }}</p>
+                        </div>
+                        <div class="card-footer">{% if fiche_secu.show_it %}
+                            Affiché sur la page d'accueil
+                            <form action="{% url "changer_show_it" %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ fiche_secu.show_it }}" name="show_it" id="show_it">
+                                <input type="hidden" value="secu" name="categorie" id="categorie">
+                                <input type="hidden" value="{{ fiche_secu.id }}" name="id" id="id">
+                                <input type="submit" value="changer la valeur">
+                            </form>
+                        {% else %}
+                            Non affiché sur la page d'accueil
+                            <form action="{% url "changer_show_it" %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ fiche_secu.show_it }}" name="show_it" id="show_it">
+                                <input type="hidden" value="secu" name="categorie" id="categorie">
+                                <input type="hidden" value="{{ fiche_secu.id }}" name="id" id="id">
+                                <input type="submit" value="changer la valeur">
+                            </form>
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+            {% for fiche_metier in metier %}
+                <div style="padding-top: 94px" class="col-lg-4 col-md-6 mb-4">
+                    <div  class="card h-100">
+                        <img class="card-img-top" src="../../static/assert/logo_param.jpg" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="">{{ fiche_metier.title }}</a>
+                            </h4>
+                            <p class="card-text">{{ fiche_metier.article|truncatewords:10 }}</p>
+                            <p class="card-text-ref">{{ fiche_metier.date }}</p>
+                        </div>
+                        <div class="card-footer">{% if fiche_metier.show_it %}
+                            Affiché sur la page d'accueil
+                            <form action="{% url "changer_show_it" %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ fiche_metier.show_it }}" name="show_it" id="show_it">
+                                <input type="hidden" value="metier" name="categorie" id="categorie">
+                                <input type="hidden" value="{{ fiche_metier.id }}" name="id" id="id">
+                                <input type="submit" value="changer la valeur">
+                            </form>
+                        {% else %}
+                            Non affiché sur la page d'accueil
+                            <form action="{% url "changer_show_it" %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ fiche_metier.show_it }}" name="show_it" id="show_it">
+                                <input type="hidden" value="metier" name="categorie" id="categorie">
+                                <input type="hidden" value="{{ fiche_metier.id }}" name="id" id="id">
+                                <input type="submit" value="changer la valeur">
+                            </form>
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+            {% for fiche_news in actu %}
+                <div style="padding-top: 94px" class="col-lg-4 col-md-6 mb-4">
+                    <div  class="card h-100">
+                        <img class="card-img-top" src="../../static/assert/logo_param.jpg" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="">{{ fiche_news.title }}</a>
+                            </h4>
+                            <p class="card-text">{{ fiche_news.article|truncatewords:10 }}</p>
+                            <p class="card-text-ref">{{ fiche_news.date }}</p>
+                        </div>
+                        <div class="card-footer">{% if fiche_news.show_it %}
+                            Affiché sur la page d'accueil
+                            <form action="{% url "changer_show_it" %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ fiche_news.show_it }}" name="show_it" id="show_it">
+                                <input type="hidden" value="news" name="categorie" id="categorie">
+                                <input type="hidden" value="{{ fiche_news.id }}" name="id" id="id">
+                                <input type="submit" value="changer la valeur">
+                            </form>
+                        {% else %}
+                            Non affiché sur la page d'accueil
+                            <form action="{% url "changer_show_it" %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ fiche_news.show_it }}" name="show_it" id="show_it">
+                                <input type="hidden" value="news" name="categorie" id="categorie">
+                                <input type="hidden" value="{{ fiche_news.id }}" name="id" id="id">
+                                <input type="submit" value="changer la valeur">
+                            </form>
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+{% endblock %}
