@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accueil',
     'calendrier',
     'import_export',
+    'parametres',
 ]
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
