@@ -2,7 +2,6 @@ from django import forms
 from inventaire.models import *
 from django.forms.widgets import HiddenInput
 
-
 class AjoutProjetForm (forms.ModelForm):
     class Meta:
         model = project_List
