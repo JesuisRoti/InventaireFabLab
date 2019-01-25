@@ -12,7 +12,7 @@ def show_home(request):
 
     return render(request, 'accueil/accueil.html', {'securite':article_securite,
                                                     'metier':article_profession,
-                                                    'actualite':article_news})
+                                                    'actualite':article_news,})
 
 def lire(request, id, cat):
     if cat=="secu":
