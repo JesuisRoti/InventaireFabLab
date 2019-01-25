@@ -1,8 +1,6 @@
 from django import forms
 from inventaire.models import *
 from django.forms.widgets import HiddenInput
-from django.forms import formset_factory
-
 
 class AjoutProjetForm (forms.ModelForm):
     class Meta:

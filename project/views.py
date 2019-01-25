@@ -4,7 +4,6 @@ from django.template.loader import render_to_string
 from .forms import *
 from django.contrib.auth import authenticate, login
 from datetime import date, time, datetime
-from django.template import RequestContext
 
 # Create your views here.
 
