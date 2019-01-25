@@ -34,19 +34,3 @@ class ReservationProjectForm(forms.ModelForm):
         model = project_Reservation
         # widgets = {'project_Name': forms.HiddenInput()}
         exclude = ('starting_Date', 'return_Date', 'project_Name')
-
-class ConfForm(forms.Form):
-    """
-    Formulaire de configuration du module
-    """
-    format_x = forms.IntegerField(label="Largeur", required=True, min_value=0, widget=forms.TextInput(
-        attrs={'placeholder': 'mm', 'class': 'form-control input-sm'}))
-    format_y = forms.IntegerField(label="Hauteur", required=True, min_value=0, widget=forms.TextInput(
-        attrs={'placeholder': 'mm', 'class': 'form-control input-sm'}))
-
-class SorteForm(forms.Form):
-
-    #Champs multiples
-    designation = forms.CharField( label="Désignation", required=True, widget=forms.TextInput(attrs={'placeholder':'','class':'form-control input-sm'}) )
-    quantite = forms.IntegerField( label="Quantité", required=True, min_value=0, widget=forms.TextInput(attrs={'placeholder':'','class':'form-control input-sm'}) )
-    rectoverso = forms.ChoiceField(label='',choices = [(False,'Recto Seul'),(True,'Recto Verso')],required=True,widget=forms.Select( attrs={'class':'form-control input-sm'}))

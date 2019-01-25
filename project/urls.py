@@ -10,5 +10,4 @@ urlpatterns = [
     re_path(r'^login_launch/(?P<project_name>.+)/(?P<promotion>[1-5])', views.check_login_launch_project, name="login_launch"),
     re_path('reservation_projet/(?P<project_name>.+)', views.reservation_projet, name="reservation_projet"),
     re_path('reservation_projet_form/(?P<project_name>.+)/(?P<first_name>.+)', views.reservation_projet_form, name="reservation_projet_form"),
-    path('my_form/', views.show_form),
 ]
