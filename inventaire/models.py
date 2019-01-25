@@ -97,8 +97,8 @@ class project_reservation_material (models.Model):
     id_Project_Reservation = models.ForeignKey('project_Reservation', on_delete=models.PROTECT)
     id_Product = models.ForeignKey('product', on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(null=False)
-    return_Quantity = models.PositiveIntegerField(null=True)
-    return_Date = models.DateField(blank=True)
+    return_Quantity = models.PositiveIntegerField(null=True, blank=True)
+    return_Date = models.DateField(blank=True, null=True)
 
 
 class security_article (models.Model):

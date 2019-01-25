@@ -8,7 +8,6 @@ class AjoutProjetForm (forms.ModelForm):
         model = project_List
         fields = '__all__'
 
-
 class AjoutProjetMatForm(forms.ModelForm):
     class Meta:
         model = project_material
@@ -18,7 +17,7 @@ class AjoutProjetMatForm(forms.ModelForm):
         # id_Product = forms.ModelChoiceField(
         #     queryset=product.objects.all(),
         #     widget=autocomplete.ModelSelect2(url='test-autocomplete')
-        # )
+        # )i
 
 
 class loginForm(forms.Form):
