@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from .forms import *
 from django.contrib.auth import authenticate, login
 from datetime import date, time, datetime, timedelta
-
+from django.forms import formset_factory
 # Create your views here.
 
 
@@ -90,20 +90,23 @@ def check_login_launch_project(request, project_name, promotion):
 
 def new_project(request):
     form = AjoutProjetForm(request.POST or None)
-    form2 = AjoutProjetMatForm(request.POST or None)
+    AjoutProjetMatFormSet = formset_factory(AjoutProjetMatForm)
+    form2 = AjoutProjetMatFormSet(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             form = form.save(commit=False)
             name_Project = form.project_Name
             form.save()
             queryset = project_List.objects.filter(project_Name=name_Project)
-            form2 = form2.save(commit=False)
-            form2.project_Name = queryset[0]
-            form2.save()
+            for simpleform in form2:
+                if simpleform.is_valid():
+                    simpleform = simpleform.save(commit=False)
+                    simpleform.project_Name = queryset[0]
+                    simpleform.save()
             id_success = 3
             id_button = "/projet"
             return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})
-    return render (request, 'project/nouveau_projet.html', locals())
+    return render(request, 'project/nouveau_projet.html', locals())
 
 def launch_project(request, project_name, promotion):
     project_Name = project_name

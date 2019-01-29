@@ -6,7 +6,37 @@
 <form  action="{% url "new_project" %}" method="post" style="margin-top: 100px">
         {% csrf_token %}
         {{ form.as_p }}
-        {{ form2.as_p }}
-    <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
+        {{ form2.management_form }}
+        <div id="form_set">
+            {% for form in form2.forms %}
+                {{ form.as_p }}
+            {% endfor %}
+        </div>
+        <div style="max-width: 700px;">
+            <input type="image" value="Ajouter un produit" id="add_more" src="../../static/gestion/Icone_plus.png" alt="Ajouter un produit" style="width:10%">
+            <input type="image" value="Enlever un produit" id="rmv" src="../../static/assert/erreur.png" alt="Enlever un produit" style="width:5%">
+        </div>
+        <div id="empty_form" style="display:none">
+                {{ form2.empty_form.as_p}}
+        </div>
+            <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
 </form>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.1.0.js"></script>
+<script>
+    $('#add_more').click(function() {
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+    $('#rmv').click(function() {
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        console.log($('#form_set'));
+        var list = document.getElementById('form_set'), item = list.lastElementChild;
+        list.removeChild(item);
+        var list = document.getElementById('form_set'), item = list.lastElementChild;
+        list.removeChild(item);
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) - 1);
+    });
+</script>
 {% endblock %}
