@@ -25,7 +25,7 @@
                         {% csrf_token %}
                         <input type="hidden" id="project_name" name="project_name" value="{{ project.project_Name }}">
                     </form>
-                    <a href="/login_launch/{{ project.project_Name }}/{{ promotion }}"><img style="width:35%" src="../../static/gestion/Icone_plus.png" alt=""></a>
+                    <a href=/login_launch/{{ project.project_Name }}/{{ promotion }}" class="button-perso">Lancer le projet</a>
                 </div>
             </div>
         </div>

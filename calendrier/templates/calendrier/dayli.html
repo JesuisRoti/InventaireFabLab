@@ -21,8 +21,21 @@
                 </div>
             </div>
         </div>
-            {% empty %}
-                Aucun retour prévu pour ce jour.
+    {% endfor %}
+    {% for reservation in project_reservation %}
+        <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+            <div  class="card h-100">
+                <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href=""> {{ reservation.product_Name }}</a>
+                    </h4>
+                    <p class="card-text-ref"> X{{ reservation.quantity }}</p>
+                </div>
+                <div class="card-footer">Emprunté par : {{ reservation.reservation.first_Name }} {{ reservation.reservation.last_Name }}
+                </div>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}
 </div>
