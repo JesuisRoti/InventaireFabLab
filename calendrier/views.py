@@ -73,7 +73,7 @@ def show_daily(request):
     return render(request, 'calendrier/dayli.html', {'reservations':queryset, 'project_reservation':queryset_project}, locals())
 
 def show_historique(request):
-    reservations = reservation.objects.all()
+    reservations = reservation.objects.all().order_by('-starting_Date')
     reservations_project = project_reservation_material.objects.all()
 
     for res in reservations_project:
