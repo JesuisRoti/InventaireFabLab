@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from inventaire.models import project_List, project_Reservation, product
+from inventaire.models import project_List, project_Reservation, product, project_material
 from django.template.loader import render_to_string
 from .forms import *
 from django.contrib.auth import authenticate, login
-from datetime import date, time, datetime
+from datetime import date, time, datetime, timedelta
 
 # Create your views here.
 
@@ -22,12 +22,20 @@ def reservation_projet_form(request, project_name, first_name):
         update_reservation = project_Reservation.objects.filter(project_Name=new_project_name[0], first_Name=name)
         if form.is_valid():
             form = form.save(commit=False)
+            print (new_project_name[0].duration)
             for object in update_reservation:
                 object.first_Name = form.first_Name
                 object.last_Name = form.last_Name
                 object.promotion = form.promotion
                 object.starting_Date = date.date()
+                object.return_Date = date.date() + timedelta(days=new_project_name[0].duration)
                 object.save()
+        #         update de la table project_reservation_material
+                update_project_reservation_material = project_reservation_material.objects.filter(id_Project_Reservation = object)
+                for update_project_reservation_material in update_project_reservation_material:
+                    update_project_reservation_material.return_Date = object.return_Date
+                    update_project_reservation_material.save()
+
         id_success = 6
         id_button = "/projet"
         return render(request, 'success.html', {'id_success': id_success, 'id_button':id_button})
@@ -101,6 +109,9 @@ def launch_project(request, project_name, promotion):
     project_Name = project_name
     promo = promotion
     form = LaunchProjectForm(request.POST or None)
+    project_Name_List = project_List.objects.filter(project_Name=project_Name)
+    products_project = project_material.objects.filter(project_Name=project_Name_List[0])
+
     if request.method == 'POST':
         nb_project = request.POST.get('nb_project')
         nb_project = int(nb_project)
@@ -108,13 +119,42 @@ def launch_project(request, project_name, promotion):
             id_error = 6
             return render(request, 'error.html', {'id_error': id_error})
         else:
+
+            for product_project in products_project:
+                product_Name = product.objects.filter(product_Name = product_project.id_Product)
+                product_available = product_Name[0].available_Product
+                product_needed = product_project.quantity
+                product_needed = int(product_needed)
+                if (product_needed * nb_project) > product_available:
+                    id_error = 7
+                    return render(request, 'error.html', {'id_error': id_error, 'product_Name': product_Name[0].product_Name})
+
+            for product_project in products_project:
+                product_Name = product.objects.filter(product_Name = product_project.id_Product)
+                product_needed = product_project.quantity
+                product_needed = int(product_needed)
+                for product_Name in product_Name:
+                    product_Name.available_Product += -(product_needed * nb_project)
+                    product_Name.save()
+
             for i in range (1, (nb_project+1)):
+                # remplissage de la table reservation_projet avec autant d'entrées que de groupe
                 new_reservation = project_Reservation()
                 new_project_name = project_List.objects.filter(project_Name=project_Name)
                 new_reservation.first_Name = i
                 new_reservation.project_Name = new_project_name[0]
                 new_reservation.promotion = 'A' + str(promo)
                 new_reservation.save()
+                # remplissage de la table project_reservation_material avec, nombre de groupe * nombre de produit par projet, entrée
+                for product_project in products_project:
+                    new_project_reservation_material = project_reservation_material()
+                    new_project_reservation_material.id_Project_Reservation = new_reservation
+                    new_project_reservation_material.id_Product = product_project.id_Product
+                    new_project_reservation_material.quantity = product_project.quantity
+                    new_project_reservation_material.save()
+
+
+
             id_success = 5
             id_button = "/projet"
             return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})
