@@ -163,3 +163,31 @@ def launch_project(request, project_name, promotion):
             return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})
     else:
         return render(request, 'project/lancer_projet.html', locals(), {project_name, promotion})
+
+def supprimer_project_reservation(request, project_Name, project_First_Name):
+
+    projet_objet = project_List.objects.get(project_Name=project_Name)
+    projet_reservation_objet  = project_Reservation.objects.get(first_Name=project_First_Name, project_Name=projet_objet)
+    project_reservation_material_objet = project_reservation_material.objects.get(id_Project_Reservation=projet_reservation_objet).delete()
+    projet_reservation_objet.delete()
+
+    id_success = 7
+    id_button = "/projet"
+    return render(request, 'success.html', {'id_success':id_success, 'id_button':id_button})
+
+def check_login_supprimer(request, project_name, first_name):
+    if request.method == 'POST':
+        global mdp, nomdecompte
+        mdp = request.POST.get('mdp')
+        nomdecompte = request.POST.get('nomdecompte')
+        user = authenticate(request, username=nomdecompte, password=mdp)
+
+        if user is not None:
+            login(request, user)
+            return redirect('supprimer_project_reservation', project_name, first_name)
+        else:
+            id_error = 5
+            return render(request, 'error.html', {'id_error': id_error})
+    else:
+        form = loginForm(request.POST or None)
+        return render(request,'project/login_supprimer.html', locals(), {project_name, first_name})
