@@ -5,6 +5,7 @@ from inventaire.forms import *
 from django.contrib.auth import authenticate, login
 from django.views.generic.dates import WeekArchiveView
 import datetime
+from django.contrib.postgres.search import SearchVector
 
 def show_home_calendrier(request):
     i=0
@@ -13,14 +14,9 @@ def show_home_calendrier(request):
     p = 3
     date_today = test_date(-1)
     date_list = [[[0 for t in range(p)] for u in range(p)] for g in range(n)]
-    # distance = [[[0 for k in xrange(n)] for j in xrange(n)] for i in xrange(n)]
-    # date = date_today + datetime.timedelta(days=7)
-    # queryset_resa = reservation.objects.filter(return_Date__gt = date_today)
-    # q = queryset_resa.exclude(return_Date__gt=date)
     while j < 6:
         date_list[j][i] = test_date(j)
         j+=1
-    print (date_list)
     i = 0
     j = 0
     while i < 6:
@@ -74,7 +70,7 @@ def show_daily(request):
 
 def show_historique(request):
     reservations = reservation.objects.all().order_by('-starting_Date')
-    reservations_project = project_reservation_material.objects.all()
+    reservations_project = project_reservation_material.objects.all().order_by('-id')
 
     for res in reservations_project:
         projet_objet = project_Reservation.objects.get(id= res.id_Project_Reservation)
@@ -85,3 +81,43 @@ def show_historique(request):
         res.project_Name = projet_objet.project_Name
 
     return render(request, 'calendrier/historique.html', {'reservations':reservations, 'project_reservations':reservations_project})
+
+def rechercher_produit(request):
+
+    list = []
+    recherche = request.POST.get('recherche')
+    global compteur, emprunte, rendu
+    compteur, emprunte, rendu = 0, 0, 0
+
+    if len(recherche) >= 3 :
+        produits = product.objects.filter(product_Name__contains=recherche)
+        for produit in produits:
+            resa = reservation.objects.filter(id_Product=produit)
+            for nonnull in resa:
+                emprunte += nonnull.quantity
+                if nonnull.return_Quantity != None:
+                    compteur += nonnull.quantity - nonnull.return_Quantity
+                    rendu += nonnull.return_Quantity
+
+        if produits:
+            return render (request, 'calendrier/test.html', {'produits':produits, 'reservations':resa, 'taille':len(produits), 'compteur':compteur, 'rendu':rendu, 'emprunte':emprunte})
+        else:
+            id_error = 8
+            return render (request, 'error.html', {'id_error':id_error, 'recherche':recherche})
+    else:
+        id_error = 9
+        return render (request, 'error.html', {'id_error':id_error, 'recherche':recherche})
+
+def show_resa(request, nom_Produit):
+    global casse, emprunte, rendu
+    casse, emprunte, rendu = 0, 0, 0
+    produit_objet = product.objects.filter(product_Name = nom_Produit)
+    for produit in produit_objet:
+        resa = reservation.objects.filter(id_Product=produit)
+        for nonnull in resa:
+            emprunte += nonnull.quantity
+            if nonnull.return_Quantity != None:
+                rendu += nonnull.return_Quantity
+                casse += nonnull.quantity - nonnull.return_Quantity
+
+    return render(request, 'calendrier/test.html', {'produits':produit_objet, 'reservations':resa, 'taille':1, 'compteur':casse, 'rendu':rendu, 'emprunte':emprunte})
