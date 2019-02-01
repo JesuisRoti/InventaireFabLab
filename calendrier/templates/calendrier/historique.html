@@ -5,7 +5,14 @@
 {% block content %}
     <div class="col-lg-9">
         <div style="padding-top: 74px" class="row">
+
+
         <h2>Reservations :</h2>
+            <form action="{% url 'recherche_Prod' %}" method="post" style="margin-left: 375px">
+                {% csrf_token %}
+                <input type="search" placeholder="Recherche de 3 lettres minimum" id="recherche" name="recherche">
+                <input type="submit">
+            </form>
         <table>
             <th>Prénom </th>
             <th>Nom </th>

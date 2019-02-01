@@ -28,4 +28,12 @@
     {% if id_error == 7 %}
         Pas assez de {{ product_Name }} disponible
     {% endif %}
+
+    {% if id_error == 8 %}
+        Votre recherche : {{ recherche }} n'a pas aboutie
+    {% endif %}
+
+    {% if id_error == 9 %}
+        Votre recherche : {{ recherche }} ne contient pas assez de lettres (3 minimum)
+    {% endif %}
 {% endblock %}

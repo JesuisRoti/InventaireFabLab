@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}FabLab{% endblock %}
+{% block titre_gauche %}Recherche Historique{% endblock %}
+{% block content %}
+{#    {% for produit in produits %}#}
+    <div style="margin-top: 52px" class="col-lg-9">
+ <a style="margin-left: 40%; font-size: large; font-weight: bold" href="{% url 'historique' %}">Historique</a>
+
+    <div class="row">
+    {% if taille == 1 %}
+        {% for produita in produits %}
+            <h2>Reservations pour {{ produita.product_Name }}:</h2>
+            <table>
+                <th>Prénom </th>
+                <th>Nom </th>
+                <th>Promotion </th>
+                <th>Date d'emprunt </th>
+                <th>Produit </th>
+                <th>Quantité</th>
+                <th>Date de retour</th>
+                <th>Quantité rendue</th>
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.first_Name }}</td>
+                        <td>{{ reservation.last_Name }}</td>
+                        <td>{{ reservation.promotion }}</td>
+                        <td>{{ reservation.starting_Date }}</td>
+                        <td>{{ reservation.id_Product}}</td>
+                        <td>{{ reservation.quantity }}</td>
+                        {% if not reservation.return_Date %}
+                            <td></td>
+                        {% else %}
+                            <td>{{ reservation.return_Date }}</td>
+                        {% endif %}
+                        {% if not reservation.return_Quantity %}
+                            <td></td>
+                        {% else %}
+                            <td>{{ reservation.return_Quantity }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            <td colspan="9">Quantité empruntée / Quantité rendue : {{ emprunte }} / {{ rendu }} </td>
+
+            </table>
+        {% endfor %}
+        {% else %}
+            {% for produita in produits %}
+                <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+                    <div  class="card h-100">
+                        <a href="{{ pole.pole_Name }}"><img class="card-img-top" src="../../static/gestion/outils.jpg" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="../produit_recherche/{{ produita.product_Name }}">{{ produita.product_Name }}</a>
+                            </h4>
+                        </div>
+                        <div class="card-footer">Cliquez sur le nom pour obtenir les réservations du produit
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+    {% endif %}
+    </div>
+    </div>
+{#    {% endfor %}#}
+    <style>
+    th {
+  background-color: #4565AD;
+  color: white;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+table, th, td {
+  border: 1px solid black;
+    font-size: large;
+}
+table {
+  width: 100%;
+}
+
+th {
+  height: 50px;
+}
+
+th, td{
+    text-align: center;
+
+}
+</style>
+{% endblock %}

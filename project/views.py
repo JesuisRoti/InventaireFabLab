@@ -168,7 +168,9 @@ def supprimer_project_reservation(request, project_Name, project_First_Name):
 
     projet_objet = project_List.objects.get(project_Name=project_Name)
     projet_reservation_objet  = project_Reservation.objects.get(first_Name=project_First_Name, project_Name=projet_objet)
-    project_reservation_material_objet = project_reservation_material.objects.get(id_Project_Reservation=projet_reservation_objet).delete()
+    project_reservation_material_objet = project_reservation_material.objects.filter(id_Project_Reservation=projet_reservation_objet)
+    for item in project_reservation_material_objet:
+        item.delete()
     projet_reservation_objet.delete()
 
     id_success = 7
