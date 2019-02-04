@@ -203,7 +203,7 @@ def rendre_project_reservation(request, project_name, first_name):
         for item in project_resa_mat:
             return_Quantity = int(request.POST.get(str(item.id_Product)))
             if return_Quantity <= 0:
-                id_error = 8
+                id_error = 10
                 return render(request, 'error.html', {'id_error': id_error})
             elif return_Quantity > item.quantity:
                 id_error = 3
