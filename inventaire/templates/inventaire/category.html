@@ -2,6 +2,14 @@
 {% load static %}
 {% block title %}FabLab{% endblock %}
 {% block titre_gauche %}Inventaire <br>    {{category_name}}{{pole_name}}{% endblock %}
+{% block search %}
+            <div>
+                <form class="form-inline" id="searchform" action="{% url "search" %}" method="get" accept-charset="utf-8">
+                    <input class="form-control mr-sm-2 searchfield" id="searchbox" name="q" type="text" placeholder="Produit...">
+                    <button class="btn  my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+{% endblock %}
 
 {% block content %}
 

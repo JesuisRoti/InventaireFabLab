@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}FabLab{% endblock %}
+{% block titre_gauche %}Inventaire <br>    {{category_name}}{{pole_name}}{% endblock %}
+
+{% block search %}
+            <div>
+                <form class="form-inline" id="searchform" action="{% url "search" %}" method="get" accept-charset="utf-8">
+                    <input class="form-control mr-sm-2 searchfield" id="searchbox" name="q" type="text" placeholder="Produit...">
+                    <button class="btn  my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+{% endblock %}
+{% block content %}
+
+    <div style="margin-top: 52px" class="col-lg-9">
+        <div class="row">
+            {% for product in found_products %}
+                <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
+                    <div  class="card">
+                        <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <p>{{ product.product_Name }}</p>
+                            </h4>
+                            <p class="card-text-ref"> #{{ product.product_Ref }}</p>
+                            <p class="card-text"> {{ product.available_Product }}/{{ product.stock }}</p>
+                        </div>
+                        <div class="card-footer flex">
+                            <form action="../reservation/" method="post" class="half-w" >
+                                {% csrf_token %}
+                                <input id="product_Ref" name="product_Ref" type="hidden" value="{{ product.product_Ref }}">
+                                <button class="button-perso" type="submit">Réserver</button>
+                            </form>
+                            <form action="../retour/" method="post" class="half-w">
+                                {% csrf_token %}
+                                <input id="product_Ref" name="product_Ref" type="hidden" value="{{ product.product_Ref }}">
+                                <button class="button-perso" type="submit">Retour</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                    {% empty %}
+                <div style="padding-top: 5%; width:100%;" class="">
+                    <img class="card-img-error" src="../../static/assert/erreur.png" alt="">
+                    <div style="text-align: center">
+                            <p class="text_error">
+                                    Pas de résultats !!
+                            </p>
+                    </div>
+                </div>
+            {% endfor %}
+
+            </div>
+        </div>
+{% endblock %}
+
+</div>
+</div>
