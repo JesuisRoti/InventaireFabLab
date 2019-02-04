@@ -13,4 +13,7 @@ urlpatterns = [
     re_path(r'^login_supprimer/(?P<project_name>.+)/(?P<first_name>.+)', views.check_login_supprimer,
             name="login_supprimer"),
     path('supprimer_project_reservation/<str:project_Name>/<str:project_First_Name>', views.supprimer_project_reservation, name="supprimer_project_reservation"),
+    re_path(r'^login_rendre/(?P<project_name>.+)/(?P<first_name>.+)', views.check_login_rendre,
+            name="login_rendre"),
+    path('rendre_project_reservation/<str:project_name>/<str:first_name>', views.rendre_project_reservation, name="retour_Project"),
 ]

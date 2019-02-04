@@ -36,4 +36,8 @@
     {% if id_error == 9 %}
         Votre recherche : {{ recherche }} ne contient pas assez de lettres (3 minimum)
     {% endif %}
+
+    {% if id_error == 10 %}
+        Le nombre de produit rendu doit être positif
+    {% endif %}
 {% endblock %}
