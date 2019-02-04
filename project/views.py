@@ -193,3 +193,51 @@ def check_login_supprimer(request, project_name, first_name):
     else:
         form = loginForm(request.POST or None)
         return render(request,'project/login_supprimer.html', locals(), {project_name, first_name})
+
+def rendre_project_reservation(request, project_name, first_name):
+    project_object = project_List.objects.get(project_Name=project_name)
+    project_reservation = project_Reservation.objects.get(project_Name=project_object, first_Name=first_name)
+    project_resa_mat = project_reservation_material.objects.filter(id_Project_Reservation=project_reservation)
+
+    if request.method == 'POST':
+        for item in project_resa_mat:
+            return_Quantity = int(request.POST.get(str(item.id_Product)))
+            if return_Quantity <= 0:
+                id_error = 10
+                return render(request, 'error.html', {'id_error': id_error})
+            elif return_Quantity > item.quantity:
+                id_error = 3
+                return render(request, 'error.html', {'id_error': id_error})
+        for item in project_resa_mat:
+            return_Quantity = int(request.POST.get(str(item.id_Product)))
+            item.return_Quantity = return_Quantity
+            item.save()
+
+            product_Name = product.objects.get(product_Name=item.id_Product)
+            print(product_Name.available_Product)
+            product_Name.available_Product += return_Quantity
+            product_Name.save()
+            print(product_Name.available_Product)
+
+        id_success = 8
+        id_button = "/projet"
+        return render(request, 'success.html', {'id_success': id_success, 'id_button': id_button})
+
+    return render(request, 'project/rendre_project_reservation.html', locals(), {project_name, first_name})
+
+def check_login_rendre(request, project_name, first_name):
+    if request.method == 'POST':
+        global mdp, nomdecompte
+        mdp = request.POST.get('mdp')
+        nomdecompte = request.POST.get('nomdecompte')
+        user = authenticate(request, username=nomdecompte, password=mdp)
+
+        if user is not None:
+            login(request, user)
+            return redirect('retour_Project', project_name, first_name)
+        else:
+            id_error = 5
+            return render(request, 'error.html', {'id_error': id_error})
+    else:
+        form = loginForm(request.POST or None)
+        return render(request,'project/login_rendre.html', locals(), {project_name, first_name})

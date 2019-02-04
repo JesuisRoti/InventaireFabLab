@@ -31,3 +31,8 @@ class ReservationProjectForm(forms.ModelForm):
         model = project_Reservation
         # widgets = {'project_Name': forms.HiddenInput()}
         exclude = ('starting_Date', 'return_Date', 'project_Name')
+
+class RetourProjectForm(forms.ModelForm):
+    class Meta:
+        model = project_reservation_material
+        fields = ('return_Quantity',)

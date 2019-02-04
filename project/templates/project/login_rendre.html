@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-{% block titre_gauche %}Login{% endblock %}
-
+{% block titre_gauche %}Login Suppression{% endblock %}
 
 {% block content %}
-<form  action="{% url "login_projet" %}" method="post" style="margin-top: 100px">
+<form  action="{% url "login_rendre" first_name=first_name project_name=project_name %}" method="post" style="margin-top: 100px">
         {% csrf_token %}
         {{ form.as_p }}
     <input class="button-validation" style="align-content: center" type="submit" value="Validation" />

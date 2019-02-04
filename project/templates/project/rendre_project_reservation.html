@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Rendre un projet{% endblock %}
+{% block titre_gauche %}Rendre un projet{% endblock %}
+
+{% block content %}
+<form action="{% url "retour_Project" project_name=project_name first_name=first_name %}" method="post" style="margin-top: 100px">
+        {% csrf_token %}
+    <div id="form_set">
+        {% for item in project_resa_mat %}
+            {{ item.id_Product }}
+                <input type="number" name="{{ item.id_Product }}" id="{{ item.id_Product }}" value="test">
+        {%  endfor %}
+    </div>
+    <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
+</form>
+{% endblock %}
