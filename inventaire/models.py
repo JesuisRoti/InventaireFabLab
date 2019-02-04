@@ -71,8 +71,8 @@ class stock_modification (models.Model):
     modification = models.CharField(max_length=100)
 
 class project_Reservation (models.Model):
+    first_Name = models.CharField(max_length=100, blank=True)
     last_Name = models.CharField(max_length=100, blank = True)
-    first_Name = models.CharField(max_length=100, blank = True)
     promotion_choice = (
         ('A1', 'A1'),
         ('A2', 'A2'),
