@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titre_gauche %}Login Suppression{% endblock %}
+
+{% block content %}
+<form  action="{% url "login_rendre" first_name=first_name project_name=project_name %}" method="post" style="margin-top: 100px">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
+    <button class="button-validation" type="submit"><a href="javascript:history.go(-1)">Retour{{ prev }}</a></button>
+</form>
+{% endblock %}
