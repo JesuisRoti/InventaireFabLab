@@ -35,11 +35,11 @@ class reservation (models.Model):
     first_Name = models.CharField(max_length=100, verbose_name = "Prénom")
     last_Name = models.CharField(max_length=100, verbose_name = "Nom")
     promotion_choice = (
-        ('A1', 'A1'),
-        ('A2', 'A2'),
-        ('A3', 'A3'),
-        ('A4', 'A4'),
-        ('A5', 'A5'),
+        ('A1', 'Première Année'),
+        ('A2', 'Deuxième Année'),
+        ('A3', 'Troisième Année'),
+        ('A4', 'Quatrième Année'),
+        ('A5', 'Cinquieme Année'),
     )
     promotion = models.CharField(max_length=4, choices=promotion_choice, default='A1')
     starting_Date = models.DateField(auto_now=True)
@@ -51,11 +51,11 @@ class reservation (models.Model):
 class project_List (models.Model):
     project_Name = models.CharField(max_length=100, verbose_name="Nom du projet")
     promotion_choice = (
-        ('A1', 'A1'),
-        ('A2', 'A2'),
-        ('A3', 'A3'),
-        ('A4', 'A4'),
-        ('A5', 'A5'),
+        ('A1', 'Première Année'),
+        ('A2', 'Deuxième Année'),
+        ('A3', 'Troisième Année'),
+        ('A4', 'Quatrième Année'),
+        ('A5', 'Cinquieme Année'),
     )
     promotion = models.CharField(max_length=4, choices=promotion_choice, default='A1')
     duration = models.PositiveIntegerField(null=False)
@@ -74,11 +74,11 @@ class project_Reservation (models.Model):
     first_Name = models.CharField(max_length=100, blank=True)
     last_Name = models.CharField(max_length=100, blank = True)
     promotion_choice = (
-        ('A1', 'A1'),
-        ('A2', 'A2'),
-        ('A3', 'A3'),
-        ('A4', 'A4'),
-        ('A5', 'A5'),
+        ('A1', 'Première Année'),
+        ('A2', 'Deuxième Année'),
+        ('A3', 'Troisième Année'),
+        ('A4', 'Quatrième Année'),
+        ('A5', 'Cinquieme Année'),
     )
     promotion = models.CharField(max_length=4, choices=promotion_choice, default='A1')
     starting_Date = models.DateField(blank = True, null = True)

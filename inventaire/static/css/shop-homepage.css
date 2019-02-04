@@ -269,3 +269,9 @@ footer{
 .required{
   /*CSS du formulaire de Réservation de produit*/
 }
+
+.sous-menu{
+list-style: none;
+padding-top:5px;
+padding-bottom:5px;
+}
