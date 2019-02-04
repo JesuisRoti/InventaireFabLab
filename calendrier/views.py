@@ -84,7 +84,6 @@ def show_historique(request):
 
 def rechercher_produit(request):
 
-    list = []
     recherche = request.POST.get('recherche')
     global compteur, emprunte, rendu
     compteur, emprunte, rendu = 0, 0, 0
@@ -121,3 +120,23 @@ def show_resa(request, nom_Produit):
                 casse += nonnull.quantity - nonnull.return_Quantity
 
     return render(request, 'calendrier/test.html', {'produits':produit_objet, 'reservations':resa, 'taille':1, 'compteur':casse, 'rendu':rendu, 'emprunte':emprunte})
+
+def show_resa_en_cours(request):
+
+    reservations = reservation.objects.filter(return_Quantity=None).order_by('-starting_Date')
+    for reservat in reservations:
+        if reservat.return_Date != None:
+            # date = datetime.combine(reservat.return_Date, datetime.min.time())
+            if reservat.return_Date < datetime.date.today():
+                reservat.attention = "retard"
+    reservations_project = project_reservation_material.objects.filter(return_Quantity=None).order_by('-id')
+
+    for res in reservations_project:
+        projet_objet = project_Reservation.objects.get(id= res.id_Project_Reservation)
+        res.first_Name = projet_objet.first_Name
+        res.last_Name = projet_objet.last_Name
+        res.starting_Date = projet_objet.starting_Date
+        res.promotion = projet_objet.promotion
+        res.project_Name = projet_objet.project_Name
+
+    return render (request, 'calendrier/historique.html', {'reservations':reservations, 'project_reservations':reservations_project})

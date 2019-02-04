@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block titre_gauche %}
+    Nouvelle fiche
+{% endblock %}
+{% block title %}
+Nouvelle fiche
+{% endblock %}
+{% block content %}
+    <div class="col-lg-9">
+        <div class="row" style="padding-top:94px">
+            <form method="post" action="{% url "nouvelle_fiche" categorie=categorie %}">
+                {% csrf_token %}
+                {{ Form.as_p }}
+                <input type="submit" value="Ajouter">
+            </form>
+        </div>
+    </div>
+{% endblock %}

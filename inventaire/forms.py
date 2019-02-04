@@ -28,3 +28,4 @@ class ModificationStockForm(forms.ModelForm):
 class loginForm(forms.Form):
     nomdecompte = forms.CharField(max_length=100, label="Nom de compte")
     mdp = forms.CharField(widget=forms.PasswordInput, max_length=100, label = "Mot de passe")
+

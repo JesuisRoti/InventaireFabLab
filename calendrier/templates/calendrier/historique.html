@@ -41,6 +41,10 @@
                     {% else %}
                 <td>{{ reservation.return_Quantity }}</td>
                     {% endif %}
+                {% if reservation.attention %}
+                    <td style="color: red">Attention RETARD</td>
+                    {% else %}
+                {% endif %}
                 </tr>
             {% endfor %}
         </table>
