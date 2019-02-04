@@ -103,19 +103,19 @@ class project_reservation_material (models.Model):
 
 class security_article (models.Model):
     title = models.CharField(max_length=50)
-    article = models.CharField(max_length=4000)
+    article = models.TextField(max_length=4000)
     date = models.DateField(auto_now=True)
     show_it = models.BooleanField()
 
 class profession_article (models.Model):
     title = models.CharField(max_length=50)
-    article = models.CharField(max_length=4000)
+    article = models.TextField(max_length=4000)
     date = models.DateField(auto_now=True)
     show_it = models.BooleanField()
 
 class news_article (models.Model):
     title = models.CharField(max_length=50)
-    article = models.CharField(max_length=4000)
+    article = models.TextField(max_length=4000)
     date = models.DateField(auto_now=True)
     show_it = models.BooleanField()
 

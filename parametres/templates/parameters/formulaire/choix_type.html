@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block titre_gauche %}
+    choix type
+{% endblock %}
+{% block title %}
+Choix type
+{% endblock %}
+
+{% block content %}
+    <div class="col-lg-9">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" style="padding-top: 94px">
+                <div class="card h-100">
+                    <a href="nouvelle_fiche/secu"><img class="card-img-top" src="../../static/gestion/Icone_plus.png" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="nouvelle_fiche/secu">Sécu</a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" style="padding-top: 94px">
+                <div class="card h-100">
+                    <a href="nouvelle_fiche/metier"><img class="card-img-top" src="../../static/gestion/Icone_plus.png" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="nouvelle_fiche/metier">Métier</a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" style="padding-top: 94px">
+                <div class="card h-100">
+                    <a href="nouvelle_fiche/actu"><img class="card-img-top" src="../../static/gestion/Icone_plus.png" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="nouvelle_fiche/actu">Actualité</a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}

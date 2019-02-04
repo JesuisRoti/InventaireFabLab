@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from inventaire.forms import *
+from parametres.forms import *
 from inventaire.models import *
 from datetime import date, time, datetime
 from django.contrib.auth import authenticate, login
@@ -54,3 +55,21 @@ def changer_show_it(request):
                 objet.show_it = False
                 objet.save()
     return redirect ('gest_acc')
+
+def choix_type(request):
+
+    return render (request, 'parameters/formulaire/choix_type.html')
+
+def ajouter_fiche(request, categorie):
+    if categorie == "secu":
+        Form = AjoutFicheSecuForm(request.POST or None)
+    if categorie == "metier":
+        Form = AjoutFicheMetierForm(request.POST or None)
+    if categorie == "actu":
+        Form = AjoutFicheActuForm(request.POST or None)
+    if request.method == 'POST':
+        if Form.is_valid():
+            Form.save()
+            return render(request, 'success.html')
+    else:
+        return render (request, 'parameters/formulaire/nouvelle_fiche.html', locals())
