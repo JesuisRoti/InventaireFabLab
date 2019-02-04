@@ -5,11 +5,14 @@
 
 {% block content %}
 <form action="{% url "retour_Project" project_name=project_name first_name=first_name %}" method="post" style="margin-top: 100px">
-        {% csrf_token %}
+    {% csrf_token %}
     <div id="form_set">
+        <h2>Quantité de produit rendu</h2>
         {% for item in project_resa_mat %}
-            {{ item.id_Product }}
+            {{ item.id_Product }} :
+            <div>
                 <input type="number" name="{{ item.id_Product }}" id="{{ item.id_Product }}" value="test">
+            </div>
         {%  endfor %}
     </div>
     <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
