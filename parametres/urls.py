@@ -7,5 +7,5 @@ urlpatterns = [
     path('parametres/GestionAccueil', views.gestion_accueil, name="gest_acc"),
     path('parametres/Change', views.changer_show_it, name="changer_show_it"),
     path('parametres/choix_type', views.choix_type, name="choix_type"),
-    path('parametres/nouvelle_fiche/<str:categorie>', views.ajouter_fiche, name="nouvelle_fiche")
+    path('parametres/nouvelle_fiche/<str:categorie>', views.ajouter_fiche, name="nouvelle_fiche"),
     ]
