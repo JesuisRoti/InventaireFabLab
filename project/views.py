@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from inventaire.models import project_List, project_Reservation, product, project_material
+from inventaire.models import *
 from django.template.loader import render_to_string
 from .forms import *
 from django.contrib.auth import authenticate, login
@@ -45,8 +45,16 @@ def reservation_projet_form(request, project_name, first_name):
 
 def reservation_projet(request, project_name):
     queryset_pl = project_List.objects.get(project_Name=project_name)
-    project = project_Reservation.objects.filter(project_Name_id = queryset_pl.id)
-    return render(request, 'project/reservation_projet.html', {'project': project})
+    project = project_Reservation.objects.filter(project_Name_id=queryset_pl.id)
+    finals = project_Reservation.objects.none()
+    for id in project:
+        project_mat_reserv = project_reservation_material.objects.filter(id_Project_Reservation_id=id.id, return_Quantity=None)
+        # print(project_mat_reserv) Check si les réservations ne sont pas rendues
+        if project_mat_reserv.count() > 0:
+            finals = finals | project_Reservation.objects.filter(id=id.id)
+            # print(finals)
+
+    return render(request, 'project/reservation_projet.html', {'project': finals})
 
 def promotion_project(request, promotion):
 
