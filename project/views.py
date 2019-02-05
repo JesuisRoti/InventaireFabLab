@@ -18,23 +18,24 @@ def reservation_projet_form(request, project_name, first_name):
     date = datetime.now()
     form = ReservationProjectForm(request.POST or None)
     if request.method == 'POST':
-        new_project_name = project_List.objects.filter(project_Name=project_Name)
-        update_reservation = project_Reservation.objects.filter(project_Name=new_project_name[0], first_Name=name)
+        new_project_name = project_List.objects.get(project_Name=project_Name)
+        update_reservation = project_Reservation.objects.filter(project_Name=new_project_name, first_Name=name)
+        # On récupère les réservations correspondant au projet
         if form.is_valid():
             form = form.save(commit=False)
-            print (new_project_name[0].duration)
             for object in update_reservation:
                 object.first_Name = form.first_Name
                 object.last_Name = form.last_Name
                 object.promotion = form.promotion
                 object.starting_Date = date.date()
-                object.return_Date = date.date() + timedelta(days=new_project_name[0].duration)
+                object.return_Date = date.date() + timedelta(days=new_project_name.duration)
                 object.save()
-        #         update de la table project_reservation_material
+                # update de la réservation du projet
                 update_project_reservation_material = project_reservation_material.objects.filter(id_Project_Reservation = object)
                 for update_project_reservation_material in update_project_reservation_material:
                     update_project_reservation_material.return_Date = object.return_Date
                     update_project_reservation_material.save()
+        #         update de la table project_reservation_material
 
         id_success = 6
         id_button = "/projet"
@@ -49,10 +50,8 @@ def reservation_projet(request, project_name):
     finals = project_Reservation.objects.none()
     for id in project:
         project_mat_reserv = project_reservation_material.objects.filter(id_Project_Reservation_id=id.id, return_Quantity=None)
-        # print(project_mat_reserv) Check si les réservations ne sont pas rendues
         if project_mat_reserv.count() > 0:
             finals = finals | project_Reservation.objects.filter(id=id.id)
-            # print(finals)
 
     return render(request, 'project/reservation_projet.html', {'project': finals})
 
@@ -206,7 +205,7 @@ def rendre_project_reservation(request, project_name, first_name):
     project_object = project_List.objects.get(project_Name=project_name)
     project_reservation = project_Reservation.objects.get(project_Name=project_object, id=first_name)
     project_resa_mat = project_reservation_material.objects.filter(id_Project_Reservation=project_reservation)
-
+    # récupération des réservations correspondantes au projet
     if request.method == 'POST':
         for item in project_resa_mat:
             return_Quantity = int(request.POST.get(str(item.id_Product)))
@@ -218,14 +217,14 @@ def rendre_project_reservation(request, project_name, first_name):
                 return render(request, 'error.html', {'id_error': id_error})
         for item in project_resa_mat:
             return_Quantity = int(request.POST.get(str(item.id_Product)))
+            # la quantité rendue précisée dans le formulaire est ajoutée à la table project reservation material
             item.return_Quantity = return_Quantity
             item.save()
 
             product_Name = product.objects.get(product_Name=item.id_Product)
-            print(product_Name.available_Product)
             product_Name.available_Product += return_Quantity
             product_Name.save()
-            print(product_Name.available_Product)
+        #     la quantité rendu est ajoutée au stock
 
         id_success = 8
         id_button = "/projet"

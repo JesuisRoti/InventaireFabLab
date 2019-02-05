@@ -13,12 +13,10 @@ class PoleResource(resources.ModelResource):
     class Meta:
         model = pole
 
-
 class CategoryResource(resources.ModelResource):
 
     class Meta:
         model = category
-
 
 class ProductResource(resources.ModelResource):
 
@@ -52,15 +50,24 @@ class ProjectReservationAdmin(admin.ModelAdmin):
 class ProjectMaterialAdmin(admin.ModelAdmin):
     list_display = ('project_Name', 'id_Product', 'quantity')
 
-# admin.site.register(pole)
-# admin.site.register(product, ProduitAdmin)
+class SecurityArticleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date', 'show_it')
+
+class ProfessionArticleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date', 'show_it')
+
+class NewsArticleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date', 'show_it')
+
+class StockModificationAdmin(admin.ModelAdmin):
+    list_display = ('first_Name', 'name_Product', 'modification')
+
 admin.site.register(reservation, ReservationAdmin)
-# admin.site.register(category)
 admin.site.register(project_Reservation, ProjectReservationAdmin)
 admin.site.register(project_List)
-admin.site.register(stock_modification)
+admin.site.register(stock_modification, StockModificationAdmin)
 admin.site.register(project_reservation_material, ProjectReservationMaterialAdmin)
 admin.site.register(project_material, ProjectMaterialAdmin)
-admin.site.register(security_article)
-admin.site.register(profession_article)
-admin.site.register(news_article)
+admin.site.register(security_article, SecurityArticleAdmin)
+admin.site.register(profession_article, ProfessionArticleAdmin)
+admin.site.register(news_article, NewsArticleAdmin)
