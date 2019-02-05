@@ -33,6 +33,7 @@ def gestion_accueil(request):
     fiches_metier = profession_article.objects.all()
     fiches_actu = news_article.objects.all()
 
+    # affichage des différentes fiches sur la page de gestion
     return render (request, 'parameters/gestion_accueil.html', {'secu': fiches_secu, 'metier': fiches_metier, 'actu': fiches_actu})
 
 def changer_show_it(request):
@@ -47,6 +48,7 @@ def changer_show_it(request):
             objet = profession_article.objects.get(id=id)
         if cat == "news":
             objet = news_article.objects.get(id=id)
+        # on récupère la fiche qui correspond à l'id renseigné
         if objet:
             if show_It == 'False':
                 objet.show_it = True
@@ -54,6 +56,7 @@ def changer_show_it(request):
             else:
                 objet.show_it = False
                 objet.save()
+    #             si show_it est activé on le désactive et vice versa
     return redirect ('gest_acc')
 
 def choix_type(request):
@@ -71,5 +74,6 @@ def ajouter_fiche(request, categorie):
         if Form.is_valid():
             Form.save()
             return render(request, 'success.html')
+    #     Récupération de la catégorie de la fiche et on affiche un formulaire de création de fiche
     else:
         return render (request, 'parameters/formulaire/nouvelle_fiche.html', locals())

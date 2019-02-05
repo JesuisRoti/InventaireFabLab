@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login
 import re
 from django.db.models import Q
 
+# tapez tuto barre de recherche django pour trouver un vrai tuto: Auteur = Mathéo
+
 def searchProduct(request):
     query_string = ''
     found_entries = None
@@ -15,7 +17,6 @@ def searchProduct(request):
         entry_query = get_query(query_string, ['product_Name',])
 
         found_entries = product.objects.filter(entry_query)
-        print(found_entries)
     return render(request, 'inventaire/found.html', {'found_products': found_entries})
 
 def normalize_query(query_string,
@@ -52,28 +53,39 @@ def get_query(query_string, search_fields):
             query = query & or_query
     return query
 
-def home(request):
-    produit = product.objects.all()
-
-    return render(request, 'inventaire/home.html', {'oui':produit})
-
 def error(request):
     return render(request, '/error.html')
 
 def success(request):
     return render(request, '/error.html')
 
-def show_category(request, pole_name):
-    poles = pole.objects.filter(pole_Name=pole_name)
-    categories = category.objects.filter(pole_id=poles[0])
+def show_pole(request):
+    poles = pole.objects.all()
 
+    # Affichage de tous les pôles
+    return render(request, 'inventaire/category.html', {'poles_list':poles})
+
+def show_category(request, pole_name):
+    poles = pole.objects.get(pole_Name=pole_name)
+    categories = category.objects.filter(pole_id=poles)
+
+    # Affiche les catégories en fonction du pôle
     return render(request, 'inventaire/category.html', {'cat_list': categories, 'pole_name': pole_name})
+
+def  show_product(request, categorie):
+    id_category = category.objects.get(category_name=categorie)
+    categories = product.objects.filter(id_Category=id_category)
+
+    # Affiche les produits par catégories
+    return render(request, 'inventaire/category.html', {'cat_products':categories, 'category_name':categorie})
+
 
 def reserver(request):
     if request.method == 'POST':
         global product_ref_final
         product_ref = request.POST.get('product_Ref')
         form = ReservationForm(request.POST or None)
+        # déclaration du formulaire de réservation
         if not (product_ref):
             if form.is_valid():
                 form = form.save(commit=False)
@@ -82,6 +94,7 @@ def reserver(request):
                     form.id_Product = produit
                     if (produit.available_Product >= form.quantity):
                         produit.available_Product += -form.quantity
+                        # on enlève la quantité emprunté au stock disponible
                         produit.save()
                     else:
                         id_error = 1
@@ -94,19 +107,6 @@ def reserver(request):
             product_ref_final = product_ref
         return render(request, 'inventaire/reservation.html', locals())
     return render(request, 'inventaire/home.html')
-
-def  show_product(request, categorie):
-    id_category = category.objects.filter(category_name=categorie)
-    categories = product.objects.filter(id_Category=id_category[0])
-    print(categorie)
-
-    return render(request, 'inventaire/category.html', {'cat_products':categories, 'category_name':categorie})
-
-def show_pole(request):
-    poles = pole.objects.all()
-
-    return render(request, 'inventaire/category.html', {'poles_list':poles})
-
 
 def retour(request):
     global product_ref_final
@@ -123,6 +123,7 @@ def retour(request):
                                                  last_Name=form.last_Name,
                                                  promotion=form.promotion,
                                                  return_Quantity=None)
+                # identification de la réservation au nom de l'emprunteur et du produit
                 if not retour:
                     id_error = 2
                     return render(request, 'error.html', {'id_error': id_error})
@@ -136,6 +137,7 @@ def retour(request):
                         retour.save()
                         for produit in produit:
                             produit.available_Product += form.return_Quantity
+                            # la quantité rendue est rajoutée au stock disponible
                             produit.save()
                     id_success = 2
                     id_button = "/pole"
@@ -168,19 +170,21 @@ def ajout_Produit(request, cat_name):
     categorie_name = cat_name
     form = NouveauProduitForm(request.POST or None)
     form2 = ModificationStockForm(request.POST or None)
+    # Instanciation des formulaires pour remplir la table stock modification et la table produit
     if request.method == 'POST':
-        print (categorie_name_final)
-        categorie_objet = category.objects.filter(category_name=categorie_name_final)
+        categorie_objet = category.objects.get(category_name=categorie_name_final)
         if form.is_valid() and form2.is_valid():
             form = form.save(commit=False)
             form2 = form2.save(commit=False)
             if form.available_Product <= form.stock:
-                form.id_Category = categorie_objet[0]
-                categorie_ref = categorie_objet[0].category_Ref
-                pole_id = categorie_objet[0].pole_id
-                pole_object = pole.objects.filter(pole_Name=pole_id.pole_Name)
-                pole_ref = pole_object[0].pole_Ref
+                # On vérifie que le stock est supérieur ou égal au nombre de produits disponibles
+                form.id_Category = categorie_objet
+                categorie_ref = categorie_objet.category_Ref
+                pole_id = categorie_objet.pole_id
+                pole_object = pole.objects.get(pole_Name=pole_id.pole_Name)
+                pole_ref = pole_object.pole_Ref
                 product_len = product.objects.count() + 1
+                # On compte les entrées dans la table product pour obtenir une ref unique
                 product_ref = pole_ref + categorie_ref + str(product_len)
                 form2.name_Product = form.product_Name
                 form.product_Ref = product_ref
@@ -198,59 +202,3 @@ def ajout_Produit(request, cat_name):
         return render(request, 'inventaire/formulaire/nouveau_produit.html', locals(), cat_name)
     cat_name = local
     return render(request, 'inventaire/formulaire/nouveau_produit.html', locals(), cat_name)
-
-
-# def check_login(request):
-#     if request.method == 'POST':
-#         global mdp, nomdecompte, cat_name_final, i
-#         mdp = request.POST.get('mdp')
-#         nomdecompte = request.POST.get('nomdecompte')
-#         cat_name = request.POST.get('cat_name')
-#         user = authenticate(request, username=nomdecompte, password=mdp)
-#
-#         if user is not None:
-#             login(request, user)
-#             form1 = NouveauProduitForm(request.POST or None)
-#             form2 = ModificationStockForm(request.POST or None)
-#             if not cat_name:
-#                 if form1.is_valid():
-#                     print ('oui')
-#                 if form2.is_valid():
-#                     print ('form2')
-#                 categorie_objet = category.objects.filter(category_name=cat_name_final)
-#                 categorie_ref = categorie_objet[0].category_Ref
-#                 pole_id = categorie_objet[0].pole_id
-#                 pole_object = pole.objects.filter(pole_Name=pole_id.pole_Name)
-#                 pole_ref = pole_object[0].pole_Ref
-#                 product_len = product.objects.count() + 1
-#                 product_ref = pole_ref + categorie_ref + str(product_len)
-#                 print ('ebug4')
-#                 if form1.is_valid() and form2.is_valid():
-#                     form1 = form1.save(commit=False)
-#                     form2 = form2.save(commit=False)
-#                     print ('ebug3')
-#                     if form1.available_Product <= form1.stock:
-#                         form1.id_Category = categorie_objet[0]
-#                         form2.name_Product = form1.product_Name
-#                         form2.modification = "ajout"
-#                         print ('ebug2')
-#
-#                         # form1.save()
-#                         # form2.save()
-#                         return redirect('../')
-#                     else:
-#                         id_error = 6
-#                         return redirect('error.html', {'id_error': id_error})
-#         else:
-#             cat_name_final = cat_name
-#             print('oui'+user)
-#             form1 = loginForm(request.POST or None)
-#             return render(request, 'inventaire/formulaire/login.html', locals())
-#
-#         print ('cat_name_final :' + cat_name_final)
-#         return render(request,'inventaire/formulaire/login.html', locals())
-#     else:
-#         print('else')
-#         form = loginForm(request.POST or None)
-#         return render(request,'inventaire/formulaire/login.html', locals())
-
