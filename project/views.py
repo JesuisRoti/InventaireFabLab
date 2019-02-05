@@ -204,7 +204,7 @@ def check_login_supprimer(request, project_name, first_name):
 
 def rendre_project_reservation(request, project_name, first_name):
     project_object = project_List.objects.get(project_Name=project_name)
-    project_reservation = project_Reservation.objects.get(project_Name=project_object, first_Name=first_name)
+    project_reservation = project_Reservation.objects.get(project_Name=project_object, id=first_name)
     project_resa_mat = project_reservation_material.objects.filter(id_Project_Reservation=project_reservation)
 
     if request.method == 'POST':

@@ -18,13 +18,15 @@
         {% for pole in poles_list %}
         <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
             <div  class="card h-100">
-              <a href="{{ pole.pole_Name }}"><img class="card-img-top" src="../../static/gestion/outils.jpg" alt=""></a>
+              <a href="{{ pole.pole_Name }}">
+                  <img class="card-img-top" src="../../static/assert/poles/{{ pole.pole_Ref }}.jpg" alt="">
+              </a>
                 <div class="card-body">
                     <h4 class="card-title">
                         <a href="{{ pole.pole_Name }}">{{ pole.pole_Name }}</a>
                     </h4>
                 </div>
-                <div class="card-footer">Lorem Ipsum
+                <div class="card-footer">
                 </div>
             </div>
         </div>
@@ -32,7 +34,9 @@
     {% for categorie in cat_list %}
     <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
         <div  class="card h-100">
-            <a href="../categorie/{{ categorie.category_name }}"><img class="card-img-top" src="../../static/gestion/Actualite1.jpg" alt=""></a>
+            <a href="../categorie/{{ categorie.category_name }}">
+                <img class="card-img-top" src="../../static/assert/categories/{{ categorie.category_Ref }}.jpg" alt="">
+            </a>
             <div class="card-body">
                 <h4 class="card-title">
                     <a href="../categorie/{{ categorie.category_name }}">{{ categorie.category_name }}</a>
@@ -51,7 +55,7 @@
     {% for product in cat_products %}
         <div style="padding-top: 5%" class="col-lg-4 col-md-6 mb-4">
             <div  class="card">
-              <img class="card-img-top" src="../../static/gestion/outils.jpg" alt="">
+              <img class="card-img-top" src="../../static/assert/products/{{ product.product_Ref }}.jpg" alt="">
                 <div class="card-body">
                     <h4 class="card-title">
                         <p>{{ product.product_Name }}</p>

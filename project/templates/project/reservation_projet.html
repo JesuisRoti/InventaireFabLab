@@ -23,7 +23,7 @@
                     {% if not project.last_Name %}
                         <a href="/reservation_projet_form/{{ project.project_Name }}/{{ project.first_Name }}">Réserver</a>
                     {% else %}
-                        <a href="/login_rendre/{{ project.project_Name }}/{{ project.first_Name}}">Rendre</a>
+                        <a href="/login_rendre/{{ project.project_Name }}/{{ project.id}}">Rendre</a>
                         <a href="/login_supprimer/{{ project.project_Name }}/{{ project.first_Name}}">Supprimer</a>
                     {% endif %}
                 </div>
