@@ -83,19 +83,19 @@ class project_Reservation (models.Model):
     promotion = models.CharField(max_length=4, choices=promotion_choice, default='A1')
     starting_Date = models.DateField(blank = True, null = True)
     return_Date = models.DateField(blank=True, null = True)
-    project_Name = models.ForeignKey('project_List', on_delete=models.PROTECT)
+    project_Name = models.ForeignKey('project_List', on_delete=models.CASCADE)
 
     def __int__(self):
         return self.id
 
 class project_material (models.Model):
-    project_Name = models.ForeignKey('project_List', on_delete=models.PROTECT)
-    id_Product = models.ForeignKey('product', on_delete=models.PROTECT)
+    project_Name = models.ForeignKey('project_List', on_delete=models.CASCADE)
+    id_Product = models.ForeignKey('product', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(null=False)
 
 class project_reservation_material (models.Model):
-    id_Project_Reservation = models.ForeignKey('project_Reservation', on_delete=models.PROTECT)
-    id_Product = models.ForeignKey('product', on_delete=models.PROTECT)
+    id_Project_Reservation = models.ForeignKey('project_Reservation', on_delete=models.CASCADE)
+    id_Product = models.ForeignKey('product', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(null=False)
     return_Quantity = models.PositiveIntegerField(null=True, blank=True)
     return_Date = models.DateField(null=True, blank=True)
