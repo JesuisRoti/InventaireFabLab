@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 import re
 from django.db.models import Q
 
-# tapez tuto barre de recherche django pour trouver un vrai tuto: Auteur = Mathéo
+# Fonction de recherche en fonction de la query en url
 
 def searchProduct(request):
     query_string = ''
@@ -19,6 +19,7 @@ def searchProduct(request):
         found_entries = product.objects.filter(entry_query)
     return render(request, 'inventaire/found.html', {'found_products': found_entries})
 
+# Fonction de mise en forme de la query enlevant les espaces et quotes
 def normalize_query(query_string,
                     findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
                     normspace=re.compile(r'\s{2,}').sub):
@@ -32,6 +33,7 @@ def normalize_query(query_string,
     '''
     return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
+# Fonction de recherche des termes de la query dans les fields du modeles
 def get_query(query_string, search_fields):
     ''' Returns a query, that is a combination of Q objects. That combination
         aims to search keywords within a model by testing the given search fields.

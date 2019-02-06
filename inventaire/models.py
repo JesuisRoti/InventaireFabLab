@@ -58,7 +58,7 @@ class project_List (models.Model):
         ('A5', 'Cinquieme Année'),
     )
     promotion = models.CharField(max_length=4, choices=promotion_choice, default='A1')
-    duration = models.PositiveIntegerField(null=False)
+    duration = models.PositiveIntegerField(null=False, verbose_name = "Durée du projet")
 
     def __str__(self):
         return self.project_Name
@@ -71,8 +71,8 @@ class stock_modification (models.Model):
     modification = models.CharField(max_length=100)
 
 class project_Reservation (models.Model):
-    first_Name = models.CharField(max_length=100, blank=True)
-    last_Name = models.CharField(max_length=100, blank = True)
+    first_Name = models.CharField(max_length=100, blank=True, verbose_name = "Prénom")
+    last_Name = models.CharField(max_length=100, blank = True, verbose_name = "Nom")
     promotion_choice = (
         ('A1', 'Première Année'),
         ('A2', 'Deuxième Année'),
@@ -90,33 +90,33 @@ class project_Reservation (models.Model):
 
 class project_material (models.Model):
     project_Name = models.ForeignKey('project_List', on_delete=models.CASCADE)
-    id_Product = models.ForeignKey('product', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(null=False)
+    id_Product = models.ForeignKey('product', on_delete=models.CASCADE, verbose_name = "Nom du Produit")
+    quantity = models.PositiveIntegerField(null=False, verbose_name = "Quantité")
 
 class project_reservation_material (models.Model):
     id_Project_Reservation = models.ForeignKey('project_Reservation', on_delete=models.CASCADE)
-    id_Product = models.ForeignKey('product', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(null=False)
-    return_Quantity = models.PositiveIntegerField(null=True, blank=True)
+    id_Product = models.ForeignKey('product', on_delete=models.CASCADE, verbose_name = "Nom du Produit")
+    quantity = models.PositiveIntegerField(null=False, verbose_name = "Quantité")
+    return_Quantity = models.PositiveIntegerField(null=True, blank=True, verbose_name = "Quantité rendue")
     return_Date = models.DateField(null=True, blank=True)
 
 
 class security_article (models.Model):
-    title = models.CharField(max_length=50)
-    article = models.TextField(max_length=4000)
+    title = models.CharField(max_length=50, verbose_name = "Titre")
+    article = models.TextField(max_length=4000, verbose_name = "Contenu")
     date = models.DateField(auto_now=True)
-    show_it = models.BooleanField()
+    show_it = models.BooleanField(verbose_name = "Visible")
 
 class profession_article (models.Model):
-    title = models.CharField(max_length=50)
-    article = models.TextField(max_length=4000)
+    title = models.CharField(max_length=50, verbose_name = "Titre")
+    article = models.TextField(max_length=4000, verbose_name = "Contenu")
     date = models.DateField(auto_now=True)
-    show_it = models.BooleanField()
+    show_it = models.BooleanField(verbose_name = "Affiché")
 
 class news_article (models.Model):
-    title = models.CharField(max_length=50)
-    article = models.TextField(max_length=4000)
+    title = models.CharField(max_length=50, verbose_name = "Titre")
+    article = models.TextField(max_length=4000, verbose_name = "Contenu")
     date = models.DateField(auto_now=True)
-    show_it = models.BooleanField()
+    show_it = models.BooleanField(verbose_name = "Affiché")
 
 
