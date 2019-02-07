@@ -2,8 +2,25 @@ from django.shortcuts import render, redirect
 from inventaire.forms import *
 from parametres.forms import *
 from inventaire.models import *
-from datetime import date, time, datetime
 from django.contrib.auth import authenticate, login
+from django.core.files.storage import FileSystemStorage
+
+
+def ajouter_image(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            myfile = request.FILES['file']
+            fs = FileSystemStorage()
+            filename = fs.save(request.POST.get('title'), myfile)
+            uploaded_file_url = fs.url(filename)
+            return render(request, 'parameters/formulaire/ajout_image.html', {'form': form,
+            'uploaded_file_url': uploaded_file_url
+        })
+    else:
+        form = UploadFileForm(request.POST, request.FILES)
+    return render(request, 'parameters/formulaire/ajout_image.html', {'form': form})
+
 
 def show_parameters(request):
 

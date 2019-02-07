@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block titre_gauche %}
+    Nouvelle image
+{% endblock %}
+{% block title %}
+Nouvelle image
+{% endblock %}
+{% load static %}
+
+{% block content %}
+    <form  action="{% url "ajout_image" %}" enctype="multipart/form-data" method="POST" enctype="multipart/form-data" style="margin-top: 100px">
+        {% csrf_token %}
+        <button class="btn btn-danger" style="margin-bottom:20px;" disabled> Le nom de l'image doit être la référence du produit</button>
+        {{ form.as_p }}
+        {% if uploaded_file_url %}
+            <p>Fichier chargé !</p>
+        {% endif %}
+        <div class="btn-group">
+            <input class="button-validation" style="align-content: center" type="submit" value="Validation" />
+            <button class="button-validation" type="submit"><a href="{% url 'param' %}">Retour</a></button>
+        </div>
+    </form>
+
+{% endblock %}
