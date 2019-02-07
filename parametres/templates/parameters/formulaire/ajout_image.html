@@ -10,7 +10,7 @@ Nouvelle image
 {% block content %}
     <form  action="{% url "ajout_image" %}" enctype="multipart/form-data" method="POST" enctype="multipart/form-data" style="margin-top: 100px">
         {% csrf_token %}
-        <button class="btn btn-danger" style="margin-bottom:20px;" disabled> Le nom de l'image doit être la référence du produit</button>
+        <button class="btn btn-danger" style="margin-bottom:20px;" disabled> Le nom de l'image doit être la référence du produit et l'image de taille 700x400pixels </button>
         {{ form.as_p }}
         {% if uploaded_file_url %}
             <p>Fichier chargé !</p>
