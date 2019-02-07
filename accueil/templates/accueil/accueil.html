@@ -16,16 +16,17 @@
             <div class="carousel-inner" role="listbox">
                 {% for article_actu in actualite %}
                     {% if forloop.first %}
-
                         <div class="carousel-item active">
+                            <div style="text-align: center;font-weight:bold;">{{article_actu.title}}</div>
                             <a href="{% url 'lire' id=article_actu.id cat='actu' %}">
-                            <img class="d-block img-fluid" src="{% static 'assert/car1.png' %}" alt="First slide">
+                            <img class="d-block img-fluid" src="{% static 'assert/car1.jpg' %}" alt="First slide">
                             </a>
                         </div>
                     {% else %}
                         <div class="carousel-item">
+                            <div style="text-align: center;font-weight:bold;">{{article_actu.title}}</div>
                             <a href="{% url 'lire' id=article_actu.id cat='actu' %}">
-                            <img class="d-block img-fluid" src="{% static 'assert/car2.png' %}" alt="">
+                            <img class="d-block img-fluid" src="{% static 'assert/car1.jpg' %}" alt="">
                             </a>
                         </div>
                     {%  endif %}
