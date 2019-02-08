@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+admin.site.site_header = "Administration FabLab"
+admin.site.index_title = "Bienvenue sur la base de données du FabLab"
+
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
