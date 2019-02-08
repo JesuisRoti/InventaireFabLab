@@ -54,7 +54,7 @@ class reservation (models.Model):
     starting_Date = models.DateField(auto_now=True)
     quantity = models.PositiveIntegerField(null=False, verbose_name = "Quantité")
     return_Quantity = models.PositiveIntegerField(null=True, blank=True, verbose_name = "Quantité rendue")
-    return_Date = models.DateField(null=True, blank=True, verbose_name = "Date de retour")
+    return_Date = models.DateField(verbose_name = "Date de retour (jj/mm/aaaa)")
     id_Product = models.ForeignKey('product', on_delete=models.PROTECT, null=True, blank=True)
 
 class project_List (models.Model):
