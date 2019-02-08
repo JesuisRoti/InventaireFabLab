@@ -9,7 +9,7 @@
     <div id="form_set">
         <h2>Quantité de produit rendu</h2>
         {% for item in project_resa_mat %}
-            {{ item.id_Product }} :
+            {{ item.id_Product }} : {{ item.quantity }}
             <div>
                 <input type="number" name="{{ item.id_Product }}" id="{{ item.id_Product }}" value="test">
             </div>
