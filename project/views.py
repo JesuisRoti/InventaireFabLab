@@ -171,10 +171,10 @@ def launch_project(request, project_name, promotion):
     else:
         return render(request, 'project/lancer_projet.html', locals(), {project_name, promotion})
 
-def supprimer_project_reservation(request, project_Name, project_First_Name):
+def supprimer_project_reservation(request, project_Name, id):
 
     projet_objet = project_List.objects.get(project_Name=project_Name)
-    projet_reservation_objet  = project_Reservation.objects.get(first_Name=project_First_Name, project_Name=projet_objet)
+    projet_reservation_objet  = project_Reservation.objects.get(id=id, project_Name=projet_objet)
     project_reservation_material_objet = project_reservation_material.objects.filter(id_Project_Reservation=projet_reservation_objet)
     for item in project_reservation_material_objet:
         item.delete()
@@ -184,7 +184,7 @@ def supprimer_project_reservation(request, project_Name, project_First_Name):
     id_button = "/projet"
     return render(request, 'success.html', {'id_success':id_success, 'id_button':id_button})
 
-def check_login_supprimer(request, project_name, first_name):
+def check_login_supprimer(request, project_name, id):
     if request.method == 'POST':
         global mdp, nomdecompte
         mdp = request.POST.get('mdp')
@@ -193,13 +193,13 @@ def check_login_supprimer(request, project_name, first_name):
 
         if user is not None:
             login(request, user)
-            return redirect('supprimer_project_reservation', project_name, first_name)
+            return redirect('supprimer_project_reservation', project_name, id)
         else:
             id_error = 5
             return render(request, 'error.html', {'id_error': id_error})
     else:
         form = loginForm(request.POST or None)
-        return render(request,'project/login_supprimer.html', locals(), {project_name, first_name})
+        return render(request,'project/login_supprimer.html', locals(), {project_name, id})
 
 def rendre_project_reservation(request, project_name, first_name):
     project_object = project_List.objects.get(project_Name=project_name)
