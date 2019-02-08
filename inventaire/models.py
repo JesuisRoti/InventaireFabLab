@@ -11,13 +11,15 @@ class pole (models.Model):
 
     def __int__(self):
         return self.id
+    def __str__(self):
+        return self.pole_Name
 
 class category (models.Model):
     class Meta:
         verbose_name = _("Catégorie")
-    category_name = models.CharField(max_length=100)
-    category_Ref = models.CharField(max_length=30)
-    pole_id = models.ForeignKey('pole', on_delete=models.PROTECT)
+    category_name = models.CharField(max_length=100, verbose_name="Nom catégorie")
+    category_Ref = models.CharField(max_length=30, verbose_name="Référence catégorie")
+    pole_id = models.ForeignKey('pole', on_delete=models.PROTECT, verbose_name="Nom du pole")
 
     def __int__(self):
         return self.id
